@@ -3,9 +3,7 @@ workspace "NanoLib"
     system "Windows"
     architecture "x86"
     location "Build"
-    makesettings [[
-        CC = U:\Dev\Tools\mingw\bin\gcc.exe
-    ]]
+  
 
 filter "configurations:Debug"
     defines { "DEBUG" }
