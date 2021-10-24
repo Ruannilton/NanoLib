@@ -66,8 +66,8 @@
     void __stl_fn(type, __base_name, clone)(type * buffer, type * *out, size_t lenght);                                   \
     bool __stl_fn(type, __base_name, equal)(type * a, type * b, size_t lenght);                                           \
     void __stl_fn(type, __base_name, fill)(type * buffer, type value, size_t lenght);                                     \
-    bool __stl_fn(type, __base_name, find)(type * buffer, type value, size_t lenght);                                     \
-    bool __stl_fn(type, __base_name, find_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b));    \
+    int __stl_fn(type, __base_name, find)(type * buffer, type value, size_t lenght);                                      \
+    int __stl_fn(type, __base_name, find_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b));     \
     void __stl_fn(type, __base_name, resize)(type * *buffer, size_t lenght);                                              \
     size_t __stl_fn(type, __base_name, count)(type * buffer, type value, size_t lenght);                                  \
     size_t __stl_fn(type, __base_name, count_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b)); \
@@ -108,11 +108,12 @@
         }                                                                                                                \
         else                                                                                                             \
         {                                                                                                                \
-            uint64_t mv_size = (from + steps) * sizeof(type);                                                            \
+            uint64_t new_index = from + steps;                                                                           \
+            uint64_t mv_size = (lenght - new_index) * sizeof(type);                                                      \
             if (mv_size > 0)                                                                                             \
             {                                                                                                            \
-                void *pfrom = (void *)(buffer[steps * -1]);                                                              \
-                void *pto = (void *)(buffer);                                                                            \
+                void *pfrom = (void *)(&buffer[from]);                                                                   \
+                void *pto = (void *)(&buffer[new_index]);                                                                \
                 memmove(pto, pfrom, mv_size);                                                                            \
             }                                                                                                            \
         }                                                                                                                \
@@ -147,7 +148,7 @@
     }                                                                                                                    \
     void __stl_fn(type, __base_name, pop_front)(type * buffer, size_t lenght)                                            \
     {                                                                                                                    \
-        __stl_fn(type, __base_name, desloc)(buffer, lenght, -1, -1);                                                     \
+        __stl_fn(type, __base_name, desloc)(buffer, lenght, 0, -1);                                                      \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, remove)(type * buffer, size_t index, size_t lenght)                                 \
     {                                                                                                                    \
@@ -171,7 +172,7 @@
     {                                                                                                                    \
         size_t len = end - start;                                                                                        \
         *out = (type *)malloc(len * sizeof(type));                                                                       \
-        memcpy(*out, &buffer[start], len);                                                                               \
+        memcpy(*out, &buffer[start], len * sizeof(type));                                                                \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, clone)(type * buffer, type * *out, size_t lenght)                                   \
     {                                                                                                                    \
@@ -189,21 +190,23 @@
             buffer[i] = value;                                                                                           \
         }                                                                                                                \
     }                                                                                                                    \
-    bool __stl_fn(type, __base_name, find)(type * buffer, type value, size_t lenght)                                     \
+    int __stl_fn(type, __base_name, find)(type * buffer, type value, size_t lenght)                                      \
     {                                                                                                                    \
         for (uint64_t i = 0; i < lenght; i++)                                                                            \
         {                                                                                                                \
             if (buffer[i] == value)                                                                                      \
                 return i;                                                                                                \
         }                                                                                                                \
+        return -1;                                                                                                       \
     }                                                                                                                    \
-    bool __stl_fn(type, __base_name, find_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b))    \
+    int __stl_fn(type, __base_name, find_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b))     \
     {                                                                                                                    \
         for (uint64_t i = 0; i < lenght; i++)                                                                            \
         {                                                                                                                \
-            if ((*cmp)(buffer[i], value) == 0)                                                                           \
+            if ((*cmp)(buffer[i], value) == true)                                                                        \
                 return i;                                                                                                \
         }                                                                                                                \
+        return -1;                                                                                                       \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, resize)(type * *buffer, size_t lenght)                                              \
     {                                                                                                                    \
@@ -250,7 +253,7 @@
     {                                                                                                                    \
         for (uint64_t i = 0; i < lenght; i++)                                                                            \
         {                                                                                                                \
-            if (!(*cmp)(buffer[i], value) == 0)                                                                          \
+            if ((*cmp)(buffer[i], value) != true)                                                                        \
             {                                                                                                            \
                 return false;                                                                                            \
             }                                                                                                            \
