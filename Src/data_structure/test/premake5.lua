@@ -2,7 +2,7 @@ workspace "NanoLib"
     configurations {"Debug","Release","Test"}
     system "Windows"
     architecture "x86"
-    location "Build"
+    location "build"
   
 
 filter "configurations:Debug"
