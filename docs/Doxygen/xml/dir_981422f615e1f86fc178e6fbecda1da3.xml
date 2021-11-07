@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.3" xml:lang="en-US">
+  <compounddef id="dir_981422f615e1f86fc178e6fbecda1da3" kind="dir">
+    <compoundname>/home/ruann/NanoLib/src/data_structure</compoundname>
+    <innerfile refid="stl__array_8h">stl_array.h</innerfile>
+    <innerfile refid="stl__core_8h">stl_core.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/ruann/NanoLib/src/data_structure/"/>
+  </compounddef>
+</doxygen>

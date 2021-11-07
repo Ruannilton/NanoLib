@@ -1,0 +1,71 @@
+\hypertarget{stl__core_8h}{}\doxysection{/home/ruann/\+Nano\+Lib/src/data\+\_\+structure/stl\+\_\+core.h File Reference}
+\label{stl__core_8h}\index{/home/ruann/NanoLib/src/data\_structure/stl\_core.h@{/home/ruann/NanoLib/src/data\_structure/stl\_core.h}}
+
+
+This file contais the core functions to others algorithms.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{stl__core_8h_a48c5e8d19c9fef8299989547ac70dd72}{stl\+\_\+declare}}(type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contais the core functions to others algorithms. 
+
+The most common data structures utilize the same algorithms to do their operations for less duplication code purpose, this algorithms are implemented once in this file and the others data structures call him internally 
+
+Definition in file \mbox{\hyperlink{stl__core_8h_source}{stl\+\_\+core.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{stl__core_8h_a48c5e8d19c9fef8299989547ac70dd72}\label{stl__core_8h_a48c5e8d19c9fef8299989547ac70dd72}} 
+\index{stl\_core.h@{stl\_core.h}!stl\_declare@{stl\_declare}}
+\index{stl\_declare@{stl\_declare}!stl\_core.h@{stl\_core.h}}
+\doxysubsubsection{\texorpdfstring{stl\_declare}{stl\_declare}}
+{\footnotesize\ttfamily \#define stl\+\_\+declare(\begin{DoxyParamCaption}\item[{}]{type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordtype}{void} \_\_stl\_fn(type, \_\_base\_name, create)(type * *buffer, \textcolor{keywordtype}{size\_t} lenght);                                              \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, desloc)(type * buffer, \textcolor{keywordtype}{size\_t} lenght, \textcolor{keywordtype}{size\_t} from, \textcolor{keywordtype}{int} steps);                       \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, grow)(type * *buffer, \textcolor{keywordtype}{size\_t} * lenght);                                              \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, push\_back)(type * buffer, type value, \textcolor{keywordtype}{size\_t} * index);                               \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, insert)(type * buffer, type value, \textcolor{keywordtype}{size\_t} index, \textcolor{keywordtype}{size\_t} lenght);                     \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, push\_front)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght);                               \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, set)(type * buffer, type value, \textcolor{keywordtype}{size\_t} index);                                       \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, pop\_front)(type * buffer, \textcolor{keywordtype}{size\_t} lenght);                                            \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, remove)(type * buffer, \textcolor{keywordtype}{size\_t} index, \textcolor{keywordtype}{size\_t} lenght);                                 \(\backslash\)}
+\DoxyCodeLine{    type \_\_stl\_fn(type, \_\_base\_name, get)(type * buffer, \textcolor{keywordtype}{size\_t} index);                                                   \(\backslash\)}
+\DoxyCodeLine{    type \_\_stl\_fn(type, \_\_base\_name, first)(type * buffer);                                                               \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, copy)(type * buffer, type * *out, \textcolor{keywordtype}{size\_t} start, \textcolor{keywordtype}{size\_t} end);                         \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, clone)(type * buffer, type * *out, \textcolor{keywordtype}{size\_t} lenght);                                   \(\backslash\)}
+\DoxyCodeLine{    bool \_\_stl\_fn(type, \_\_base\_name, equal)(type * a, type * b, \textcolor{keywordtype}{size\_t} lenght);                                           \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, fill)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght);                                     \(\backslash\)}
+\DoxyCodeLine{    int \_\_stl\_fn(type, \_\_base\_name, find)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght);                                      \(\backslash\)}
+\DoxyCodeLine{    int \_\_stl\_fn(type, \_\_base\_name, find\_cmp)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght, bool (*cmp)(type a, type b));     \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, resize)(type * *buffer, \textcolor{keywordtype}{size\_t} lenght);                                              \(\backslash\)}
+\DoxyCodeLine{    size\_t \_\_stl\_fn(type, \_\_base\_name, count)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght);                                  \(\backslash\)}
+\DoxyCodeLine{    size\_t \_\_stl\_fn(type, \_\_base\_name, count\_cmp)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght, bool (*cmp)(type a, type b)); \(\backslash\)}
+\DoxyCodeLine{    bool \_\_stl\_fn(type, \_\_base\_name, all)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght);                                      \(\backslash\)}
+\DoxyCodeLine{    bool \_\_stl\_fn(type, \_\_base\_name, all\_cmp)(type * buffer, type value, \textcolor{keywordtype}{size\_t} lenght, bool (*cmp)(type a, type b));     \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, join)(type * *a, type * b, \textcolor{keywordtype}{size\_t} lenght\_a, \textcolor{keywordtype}{size\_t} lenght\_b);                        \(\backslash\)}
+\DoxyCodeLine{    void \_\_stl\_fn(type, \_\_base\_name, reverse)(type * buffer, \textcolor{keywordtype}{size\_t} lenght);}
+
+\end{DoxyCode}
+Declare the functions to be implemented later with stl\+\_\+implement 
+\begin{DoxyParams}{Parameters}
+{\em type} & The data type for wich the functions will be implemented \mbox{\hyperlink{stl__core_8h_a48c5e8d19c9fef8299989547ac70dd72}{stl\+\_\+declare(int)}}\+: stl\+\_\+core\+\_\+int\+\_\+create, stl\+\_\+core\+\_\+int\+\_\+push\+\_\+back, stl\+\_\+core\+\_\+int\+\_\+insert, \mbox{[}...\mbox{]}\\
+\hline
+\end{DoxyParams}
+\mbox{\hyperlink{stl__core_8h_a48c5e8d19c9fef8299989547ac70dd72}{stl\+\_\+declare(float)}}\+: stl\+\_\+core\+\_\+float\+\_\+create, stl\+\_\+core\+\_\+float\+\_\+push\+\_\+back, stl\+\_\+core\+\_\+float\+\_\+insert, \mbox{[}...\mbox{]} 
+
+Definition at line \mbox{\hyperlink{stl__core_8h_source_l00079}{79}} of file \mbox{\hyperlink{stl__core_8h_source}{stl\+\_\+core.\+h}}.
+
