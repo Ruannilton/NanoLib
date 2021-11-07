@@ -1,0 +1,88 @@
+\hypertarget{stl__array_8h}{}\doxysection{/home/ruann/\+Nano\+Lib/src/data\+\_\+structure/stl\+\_\+array.h File Reference}
+\label{stl__array_8h}\index{/home/ruann/NanoLib/src/data\_structure/stl\_array.h@{/home/ruann/NanoLib/src/data\_structure/stl\_array.h}}
+{\ttfamily \#include \char`\"{}stl\+\_\+core.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type)~\mbox{\hyperlink{stl__core_8h_af12e68421d0013b9a10ba36fd83d993c}{\+\_\+\+\_\+stl\+\_\+t}}(type, array)
+\item 
+\#define \mbox{\hyperlink{stl__array_8h_ae4a433097f1ba4657e9d60b51b3b2ae6}{ARRAY\+\_\+\+INITIAL\+\_\+\+LEN}}~4
+\item 
+\#define \mbox{\hyperlink{stl__array_8h_a568329a88c2d76daf86651eeb8a64e67}{stl\+\_\+declare\+\_\+array}}(type)
+\item 
+\#define \mbox{\hyperlink{stl__array_8h_a63f43f01bd4b1374ac19a3e4562746ca}{stl\+\_\+implement\+\_\+array}}(type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{stl__array_8h_a94a243330685672ac3bea000685e0cfc}\label{stl__array_8h_a94a243330685672ac3bea000685e0cfc}} 
+\index{stl\_array.h@{stl\_array.h}!array@{array}}
+\index{array@{array}!stl\_array.h@{stl\_array.h}}
+\doxysubsubsection{\texorpdfstring{array}{array}}
+{\footnotesize\ttfamily \#define array(\begin{DoxyParamCaption}\item[{}]{type }\end{DoxyParamCaption})~\mbox{\hyperlink{stl__core_8h_af12e68421d0013b9a10ba36fd83d993c}{\+\_\+\+\_\+stl\+\_\+t}}(type, array)}
+
+
+
+Definition at line \mbox{\hyperlink{stl__array_8h_source_l00005}{5}} of file \mbox{\hyperlink{stl__array_8h_source}{stl\+\_\+array.\+h}}.
+
+\mbox{\Hypertarget{stl__array_8h_ae4a433097f1ba4657e9d60b51b3b2ae6}\label{stl__array_8h_ae4a433097f1ba4657e9d60b51b3b2ae6}} 
+\index{stl\_array.h@{stl\_array.h}!ARRAY\_INITIAL\_LEN@{ARRAY\_INITIAL\_LEN}}
+\index{ARRAY\_INITIAL\_LEN@{ARRAY\_INITIAL\_LEN}!stl\_array.h@{stl\_array.h}}
+\doxysubsubsection{\texorpdfstring{ARRAY\_INITIAL\_LEN}{ARRAY\_INITIAL\_LEN}}
+{\footnotesize\ttfamily \#define ARRAY\+\_\+\+INITIAL\+\_\+\+LEN~4}
+
+
+
+Definition at line \mbox{\hyperlink{stl__array_8h_source_l00006}{6}} of file \mbox{\hyperlink{stl__array_8h_source}{stl\+\_\+array.\+h}}.
+
+\mbox{\Hypertarget{stl__array_8h_a568329a88c2d76daf86651eeb8a64e67}\label{stl__array_8h_a568329a88c2d76daf86651eeb8a64e67}} 
+\index{stl\_array.h@{stl\_array.h}!stl\_declare\_array@{stl\_declare\_array}}
+\index{stl\_declare\_array@{stl\_declare\_array}!stl\_array.h@{stl\_array.h}}
+\doxysubsubsection{\texorpdfstring{stl\_declare\_array}{stl\_declare\_array}}
+{\footnotesize\ttfamily \#define stl\+\_\+declare\+\_\+array(\begin{DoxyParamCaption}\item[{}]{type }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keyword}{typedef} \textcolor{keyword}{struct                                                                                        }\(\backslash\)}
+\DoxyCodeLine{    \{                                                                                                     \(\backslash\)}
+\DoxyCodeLine{        type *buffer;                                                                                     \(\backslash\)}
+\DoxyCodeLine{        size\_t lenght;                                                                                    \(\backslash\)}
+\DoxyCodeLine{    \} \mbox{\hyperlink{stl__core_8h_af12e68421d0013b9a10ba36fd83d993c}{\_\_stl\_t}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}});                                                                               \(\backslash\)}
+\DoxyCodeLine{    stl\_declare(type);                                                                                    \(\backslash\)}
+\DoxyCodeLine{                                                                                                          \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, create)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, \textcolor{keywordtype}{size\_t} lenght);                                 \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, desloc)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, \textcolor{keywordtype}{size\_t} from, \textcolor{keywordtype}{int} steps);                        \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, insert)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value, \textcolor{keywordtype}{size\_t} index);                      \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, set)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value, \textcolor{keywordtype}{size\_t} index);                         \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, remove)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, \textcolor{keywordtype}{size\_t} index);                                  \(\backslash\)}
+\DoxyCodeLine{    type \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, get)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, \textcolor{keywordtype}{size\_t} index);                                     \(\backslash\)}
+\DoxyCodeLine{    type \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, first)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr);                                                 \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, copy)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type * *out, \textcolor{keywordtype}{size\_t} start, \textcolor{keywordtype}{size\_t} end);           \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, clone)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type * *out);                                    \(\backslash\)}
+\DoxyCodeLine{    bool \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, equal)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * a, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * b);                                  \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, fill)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value);                                      \(\backslash\)}
+\DoxyCodeLine{    int \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, find)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value);                                       \(\backslash\)}
+\DoxyCodeLine{    int \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, find\_cmp)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value, bool (*cmp)(type a, type b));      \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, resize)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, \textcolor{keywordtype}{size\_t} lenght);                                 \(\backslash\)}
+\DoxyCodeLine{    size\_t \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, count)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value);                                   \(\backslash\)}
+\DoxyCodeLine{    size\_t \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, count\_cmp)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value, bool (*cmp)(type a, type b));  \(\backslash\)}
+\DoxyCodeLine{    bool \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, all)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value);                                       \(\backslash\)}
+\DoxyCodeLine{    bool \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, all\_cmp)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr, type value, bool (*cmp)(type a, type b));      \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, join)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * a, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * b, \textcolor{keywordtype}{size\_t} lenght\_a, \textcolor{keywordtype}{size\_t} lenght\_b); \(\backslash\)}
+\DoxyCodeLine{    void \mbox{\hyperlink{stl__core_8h_a242f0e94e24ca2bded26a85b173f50d7}{\_\_stl\_fn}}(type, \mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}, reverse)(\mbox{\hyperlink{stl__array_8h_a94a243330685672ac3bea000685e0cfc}{array}}(type) * arr);}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{stl__array_8h_source_l00007}{7}} of file \mbox{\hyperlink{stl__array_8h_source}{stl\+\_\+array.\+h}}.
+
+\mbox{\Hypertarget{stl__array_8h_a63f43f01bd4b1374ac19a3e4562746ca}\label{stl__array_8h_a63f43f01bd4b1374ac19a3e4562746ca}} 
+\index{stl\_array.h@{stl\_array.h}!stl\_implement\_array@{stl\_implement\_array}}
+\index{stl\_implement\_array@{stl\_implement\_array}!stl\_array.h@{stl\_array.h}}
+\doxysubsubsection{\texorpdfstring{stl\_implement\_array}{stl\_implement\_array}}
+{\footnotesize\ttfamily \#define stl\+\_\+implement\+\_\+array(\begin{DoxyParamCaption}\item[{}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{stl__array_8h_source_l00036}{36}} of file \mbox{\hyperlink{stl__array_8h_source}{stl\+\_\+array.\+h}}.
+
