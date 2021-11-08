@@ -6,6 +6,9 @@
 NanoLibrary's documentation!
 =======================================
 
+.. doxygendefine:: stl_declare
+   :no-link:
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

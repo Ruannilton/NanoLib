@@ -64,17 +64,6 @@
 
 /** Declare the functions to be implemented later with stl_implement
  *  @param type The data type for wich the functions will be implemented
- *  stl_declare(int):
- *      stl_core_int_create,
- *      stl_core_int_push_back,
- *      stl_core_int_insert,
- *      [...]
- * 
- *  stl_declare(float):
- *      stl_core_float_create,
- *      stl_core_float_push_back,
- *      stl_core_float_insert,
- *      [...]
  */
 #define stl_declare(type)                                                                                                 \
     void __stl_fn(type, __base_name, create)(type * *buffer, size_t lenght);                                              \
