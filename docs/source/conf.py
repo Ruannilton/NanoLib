@@ -34,6 +34,8 @@ extensions = [
     'breathe'
 ]
 
+breathe_implementation_filename_extensions = ['.c', '.h']
+
 breathe_projects = { "NanoLibrary": "../doxygen/xml/" }
 
 breathe_default_project = "NanoLibrary"
