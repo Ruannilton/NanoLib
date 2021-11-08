@@ -5,6 +5,7 @@
 
 NanoLibrary's documentation!
 =======================================
+.. doxygenfile:: stl_core.h
 
 .. doxygendefine:: stl_declare
    :no-link:
