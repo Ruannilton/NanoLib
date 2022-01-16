@@ -59,4 +59,4 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 
 ### Exemplos
 
-É possível encontrar exemplos de utilização da biblioteca dentro da pasta examples, para executa-los de maneira rápida e direta é necessário a instalação da ferramente de build [Premake](https://premake.github.io/), posteriormente utilizar o script "run" mais apropriado para sua plataforma.
+É possível encontrar [exemplos](examples) de utilização da biblioteca dentro da pasta examples, para executa-los de maneira rápida e direta é necessário a instalação da ferramente de build [Premake](https://premake.github.io/), posteriormente utilizar o script "run" mais apropriado para sua plataforma.
