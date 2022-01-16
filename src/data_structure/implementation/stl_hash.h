@@ -1,8 +1,12 @@
 #ifndef STL_HASH_IMPL_H
 #define STL_HASH_IMPL_H
 
-#include "stl_core.h"
-#include "../definitions/stl_hash.h"
+#include "../internal/stl_macros.h"
+#include "../internal/slt_foreach_macro.h"
+
+#define stl_implement_hash_table_for(...) call_macro_x_for_each(___i_stl_implement_ht_, __VA_ARGS__)
+
+#define ___i_stl_implement_ht_(x) stl_implement_hash_table x
 
 #define ___stl_generic_hash_cmp(key_type)                                      \
     bool _____concat(___stl_def_cmp_, key_type)(key_type a, key_type b)        \
@@ -21,13 +25,7 @@
         return k;                                                              \
     }
 
-#define stl_implement_hash_table_alias(key_type, key_alias, value_type, value_alias) \
-    typedef key_type key_alias;                                                      \
-    typedef value_type value_alias;                                                  \
-    stl_implement_hash_table(key_alias, value_alias);
-
 #define stl_implement_hash_table(key_type, value_type)                                                                                                                                                \
-    stl_declare_hash_table(key_type, value_type);                                                                                                                                                     \
     ___stl_generic_hash_cmp(key_type);                                                                                                                                                                \
     void __stl_fn_hash(key_type, value_type, hash_map, create)(__stl_t_hash(key_type, value_type) * hash_ptr, size_t lenght, uintmax_t(*hash_fn)(char *), bool (*cmp_key_fn)(key_type a, key_type b)) \
     {                                                                                                                                                                                                 \
@@ -37,6 +35,7 @@
         hash_ptr->hash_fn = (hash_fn != 0) ? (hash_fn) : (_____concat(___stl_def_hash_, key_type));                                                                                                   \
         hash_ptr->cmp_key_fn = (cmp_key_fn != 0) ? (cmp_key_fn) : (_____concat(___stl_def_cmp_, key_type));                                                                                           \
         hash_ptr->buffer = cstl_malloc((lenght * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t))));                                                                              \
+        hash_ptr->count = 0;                                                                                                                                                                          \
         for (size_t i = 0; i < lenght; i++)                                                                                                                                                           \
         {                                                                                                                                                                                             \
             hash_ptr->buffer[i].arr = 0;                                                                                                                                                              \
@@ -80,6 +79,7 @@
                                                                                                                                                                                                       \
         bucket_arr->arr[bucket_arr->count] = (__stl_bucket(key_type, value_type)){.key = key, .value = value};                                                                                        \
         bucket_arr->count++;                                                                                                                                                                          \
+        hash_ptr->count++;                                                                                                                                                                            \
     }                                                                                                                                                                                                 \
     bool __stl_fn_hash(key_type, value_type, hash_map, get)(__stl_t_hash(key_type, value_type) * hash_ptr, key_type key, value_type * value)                                                          \
     {                                                                                                                                                                                                 \
@@ -135,7 +135,10 @@
             }                                                                                                                                                                                         \
         }                                                                                                                                                                                             \
         if (found)                                                                                                                                                                                    \
+        {                                                                                                                                                                                             \
             bucket_arr->count--;                                                                                                                                                                      \
+            hash_ptr->count--;                                                                                                                                                                        \
+        }                                                                                                                                                                                             \
         return found;                                                                                                                                                                                 \
     }                                                                                                                                                                                                 \
     void __stl_fn_hash(key_type, value_type, hash_map, delete)(__stl_t_hash(key_type, value_type) * hash_ptr)                                                                                         \
@@ -157,6 +160,8 @@
             hash_ptr->buffer[i].count = 0;                                                                                                                                                            \
             hash_ptr->buffer[i].len = 0;                                                                                                                                                              \
         }                                                                                                                                                                                             \
-    }
+        hash_ptr->count = 0;                                                                                                                                                                          \
+    }                                                                                                                                                                                                 \
+    size_t __stl_fn_hash(key_type, value_type, hash_map, lenght)(__stl_t_hash(key_type, value_type) * hash_ptr) { return hash_ptr->count; }
 
 #endif

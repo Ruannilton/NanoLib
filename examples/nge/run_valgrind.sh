@@ -1,0 +1,1 @@
+valgrind --leak-check=full ./build/bin/Debug/data_structure

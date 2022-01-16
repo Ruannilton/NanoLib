@@ -3,10 +3,9 @@
 
 #include "../internal/stl_macros.h"
 #include "../internal/stl_validations.h"
+#include "../internal/slt_foreach_macro.h"
 
-#define stl_core_declare_alias(type, alias) \
-    typedef type alias;                     \
-    stl_core_declare(alias)
+#define stl_implement_core_for(...) call_macro_x_for_each(stl_core_implement, __VA_ARGS__)
 
 #define stl_core_declare(type)                                                                                            \
     void __stl_fn(type, __base_name, create)(type * *buffer, size_t lenght);                                              \
@@ -34,12 +33,7 @@
     void __stl_fn(type, __base_name, join)(type * *a, type * b, size_t lenght_a, size_t lenght_b);                        \
     void __stl_fn(type, __base_name, reverse)(type * buffer, size_t lenght);
 
-#define stl_core_implement_alias(type, alias) \
-    typedef type alias;                       \
-    stl_core_implement(alias)
-
 #define stl_core_implement(type)                                                                                         \
-    stl_core_declare(type);                                                                                              \
     void __stl_fn(type, __base_name, create)(type * *buffer, size_t lenght)                                              \
     {                                                                                                                    \
         STL_VAL_NOT_ZERO(lenght);                                                                                        \
@@ -72,7 +66,6 @@
                 cstl_memmove(pto, pfrom, mv_size);                                                                       \
             }                                                                                                            \
         }                                                                                                                \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, grow)(type * *buffer, size_t * lenght)                                              \
     {                                                                                                                    \
@@ -85,7 +78,6 @@
             *buffer = new_ptr;                                                                                           \
             *lenght = new_len;                                                                                           \
         }                                                                                                                \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, push_back)(type * buffer, type value, size_t * index)                               \
     {                                                                                                                    \
@@ -94,7 +86,6 @@
         STL_VAL_NOT_NULL(index);                                                                                         \
         buffer[(*index)] = value;                                                                                        \
         *index = (*index) + 1;                                                                                           \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, insert)(type * buffer, type value, size_t index, size_t lenght)                     \
     {                                                                                                                    \
@@ -102,27 +93,23 @@
         STL_VAL_NOT_NULL(buffer);                                                                                        \
         __stl_fn(type, __base_name, desloc)(buffer, lenght, index, 1);                                                   \
         buffer[index] = value;                                                                                           \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, push_front)(type * buffer, type value, size_t lenght)                               \
     {                                                                                                                    \
         STL_VAL_NOT_ZERO(lenght);                                                                                        \
         STL_VAL_NOT_NULL(buffer);                                                                                        \
         __stl_fn(type, __base_name, insert)(buffer, value, 0, lenght);                                                   \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, set)(type * buffer, type value, size_t index)                                       \
     {                                                                                                                    \
         STL_VAL_NOT_NULL(buffer);                                                                                        \
         buffer[index] = value;                                                                                           \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, pop_front)(type * buffer, size_t lenght)                                            \
     {                                                                                                                    \
         STL_VAL_NOT_ZERO(lenght);                                                                                        \
         STL_VAL_NOT_NULL(buffer);                                                                                        \
         __stl_fn(type, __base_name, desloc)(buffer, lenght, 1, -1);                                                      \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, remove)(type * buffer, size_t index, size_t lenght)                                 \
     {                                                                                                                    \
@@ -135,7 +122,6 @@
             void *pto = (void *)(&buffer[index]);                                                                        \
             cstl_memmove(pto, pfrom, mv_size);                                                                           \
         }                                                                                                                \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     type __stl_fn(type, __base_name, get)(type * buffer, size_t index)                                                   \
     {                                                                                                                    \
@@ -154,7 +140,6 @@
         STL_VAL_NOT_ZERO(end);                                                                                           \
         size_t len = end - start;                                                                                        \
         cstl_memcpy(*out, &buffer[start], len * sizeof(type));                                                           \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, clone)(type * buffer, type * *out, size_t lenght)                                   \
     {                                                                                                                    \
@@ -162,7 +147,6 @@
         STL_VAL_NOT_NULL(buffer);                                                                                        \
         STL_VAL_NOT_ZERO(lenght);                                                                                        \
         cstl_memcpy(*out, buffer, lenght * sizeof(type));                                                                \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     bool __stl_fn(type, __base_name, equal)(type * a, type * b, size_t lenght)                                           \
     {                                                                                                                    \
@@ -178,7 +162,6 @@
         {                                                                                                                \
             buffer[i] = value;                                                                                           \
         }                                                                                                                \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     int __stl_fn(type, __base_name, find)(type * buffer, type value, size_t lenght)                                      \
     {                                                                                                                    \
@@ -208,7 +191,6 @@
         void *new_ptr = cstl_realloc(*buffer, lenght * sizeof(type));                                                    \
         if (new_ptr)                                                                                                     \
             *buffer = new_ptr;                                                                                           \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     size_t __stl_fn(type, __base_name, count)(type * buffer, type value, size_t lenght)                                  \
     {                                                                                                                    \
@@ -273,7 +255,6 @@
             *a = new_ptr;                                                                                                \
             cstl_memcpy((void *)((uintptr_t)(*a) + (sizeof(type) * lenght_a)), b, (lenght_b * sizeof(type)));            \
         }                                                                                                                \
-        return STL_OK;                                                                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, reverse)(type * buffer, size_t lenght)                                              \
     {                                                                                                                    \
@@ -289,7 +270,6 @@
             start++;                                                                                                     \
             end--;                                                                                                       \
         }                                                                                                                \
-        return STL_OK;                                                                                                   \
-        }
+    }
 
 #endif

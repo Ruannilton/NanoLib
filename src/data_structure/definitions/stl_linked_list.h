@@ -29,11 +29,14 @@
 #define linked_list_join(type) __stl_fn(type, linked_list, join)
 #define linked_list_reverse(type) __stl_fn(type, linked_list, reverse)
 #define linked_list_free(type) __stl_fn(type, linked_list, free)
+#define linked_list_lenght(type) __stl_fn(type, linked_list, lenght)
 #endif
 
 #define stl_declare_linked_list_alias(type, alias) \
     typedef type alias;                            \
     stl_declare_linked_list(type);
+
+#define stl_declare_linked_list_for(...) call_macro_x_for_each(stl_declare_linked_list, __VA_ARGS__)
 
 #define stl_declare_linked_list(type)                                                                                                         \
     typedef struct __stl_t(type, linked_list_node)                                                                                            \
@@ -68,6 +71,41 @@
     bool __stl_fn(type, linked_list, all_cmp)(__stl_t(type, linked_list) * arr, type value, bool (*cmp)(type a, type b));                     \
     void __stl_fn(type, linked_list, join)(__stl_t(type, linked_list) * a, __stl_t(type, linked_list) * b, size_t lenght_a, size_t lenght_b); \
     void __stl_fn(type, linked_list, reverse)(__stl_t(type, linked_list) * arr);                                                              \
-    void __stl_fn(type, linked_list, free)(__stl_t(type, linked_list) * arr, void (*custom_free)(type a));
+    void __stl_fn(type, linked_list, free)(__stl_t(type, linked_list) * arr, void (*custom_free)(type a));                                    \
+    size_t __stl_fn(type, linked_list, lenght)(__stl_t(type, linked_list) * arr);
 
+#define linked_list_foreach(type, p_list, code, ...) macro_override(dummy, ##__VA_ARGS__, _4, _3, ___i___linked_list_foreach_2, ___i___linked_list_foreach_1, ___i___linked_list_foreach_0)(type, p_list, code, ##__VA_ARGS__)
+
+#define ___i___linked_list_foreach_0(type, p_list, code)                           \
+    {                                                                              \
+        __stl_t(type, linked_list_node_t) *___c_i_cstl_loop_pnext = p_list->first; \
+        for (size_t cstl_index = 0; cstl_index < p_list->count; cstl_index++)      \
+        {                                                                          \
+            type cstl_value = ___c_i_cstl_loop_pnext->value;                       \
+            code;                                                                  \
+            ___c_i_cstl_loop_pnext = ___c_i_cstl_loop_pnext->pnext;                \
+        }                                                                          \
+    }
+
+#define ___i___linked_list_foreach_1(type, p_list, code, i_name)                   \
+    {                                                                              \
+        __stl_t(type, linked_list_node_t) *___c_i_cstl_loop_pnext = p_list->first; \
+        for (size_t i_name = 0; i_name < p_list->count; i_name++)                  \
+        {                                                                          \
+            type cstl_value = ___c_i_cstl_loop_pnext->value;                       \
+            code;                                                                  \
+            ___c_i_cstl_loop_pnext = ___c_i_cstl_loop_pnext->pnext;                \
+        }                                                                          \
+    }
+
+#define ___i___linked_list_foreach_2(type, p_list, code, i_name, v_name)           \
+    {                                                                              \
+        __stl_t(type, linked_list_node_t) *___c_i_cstl_loop_pnext = p_list->first; \
+        for (size_t i_name = 0; i_name < p_list->count; i_name++)                  \
+        {                                                                          \
+            type v_name = ___c_i_cstl_loop_pnext->value;                           \
+            code;                                                                  \
+            ___c_i_cstl_loop_pnext = ___c_i_cstl_loop_pnext->pnext;                \
+        }                                                                          \
+    }
 #endif

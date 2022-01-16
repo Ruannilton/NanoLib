@@ -1,14 +1,12 @@
 #ifndef STL_LINKED_LIST_IMPL_H
 #define STL_LINKED_LIST_IMPL_H
 
-#include "../definitions/stl_linked_list.h"
+#include "../internal/stl_macros.h"
+#include "../internal/slt_foreach_macro.h"
 
-#define stl_implement_linked_list_alias(type, alias) \
-    typedef type alias;                              \
-    stl_implement_linked_list(alias);
+#define stl_implement_linked_list_for(...) call_macro_x_for_each(stl_implement_linked_list, __VA_ARGS__)
 
 #define stl_implement_linked_list(type)                                                                                                      \
-    stl_declare_linked_list(type);                                                                                                           \
     void __stl_fn(type, linked_list, create)(__stl_t(type, linked_list) * arr, size_t lenght)                                                \
     {                                                                                                                                        \
         STL_VAL_NOT_NULL(arr);                                                                                                               \
@@ -378,6 +376,7 @@
                 cstl_free(tmp);                                                                                                              \
             }                                                                                                                                \
         }                                                                                                                                    \
-    }
+    }                                                                                                                                        \
+    size_t __stl_fn(type, linked_list, lenght)(__stl_t(type, linked_list) * arr) { return arr->count; }
 
 #endif

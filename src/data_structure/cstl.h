@@ -46,21 +46,17 @@
 
 #endif
 
-#ifdef CSTL_IMPLEMENT
-
-#include "implementation/stl_core.h"
-#include "implementation/stl_array.h"
-#include "implementation/stl_vector.h"
-#include "implementation/stl_hash.h"
-#include "implementation/stl_linked_list.h"
-
-#else
+#include "internal/slt_foreach_macro.h"
 
 #include "definitions/stl_array.h"
 #include "definitions/stl_vector.h"
 #include "definitions/stl_hash.h"
 #include "definitions/stl_linked_list.h"
 
-#endif
+#include "implementation/stl_core.h"
+#include "implementation/stl_array.h"
+#include "implementation/stl_vector.h"
+#include "implementation/stl_hash.h"
+#include "implementation/stl_linked_list.h"
 
 #endif

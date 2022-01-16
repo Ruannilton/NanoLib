@@ -2,6 +2,7 @@
 #define STL_HASH_TABLE_H
 
 #include "../internal/stl_macros.h"
+#include "../internal/slt_foreach_macro.h"
 #include "stdint.h"
 #include "stdlib.h"
 #include "stdbool.h"
@@ -24,7 +25,10 @@
 #define hash_map_exist(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, exist)
 #define hash_map_delete(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, delete)
 #define hash_map_clear(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, clear)
+#define hash_map_lenght(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, lenght)
 #endif
+
+#define stl_declare_hash_table_for(...) call_macro_x_for_each(___i_stl_declare_ht_, __VA_ARGS__)
 
 #define __stl_declare_hash_array(data) \
     typedef struct                     \
@@ -47,6 +51,7 @@
     {                                                                          \
         _____concat(__stl_bucket(key_type, value_type), _hash_arr_t) * buffer; \
         size_t len;                                                            \
+        size_t count;                                                          \
         uintmax_t (*hash_fn)(char *);                                          \
         bool (*cmp_key_fn)(key_type a, key_type b);                            \
     } __stl_t_hash(key_type, value_type);
@@ -56,6 +61,8 @@
     typedef value_type value_alias;                                                \
     stl_declare_hash_table(key_alias, value_alias);
 
+#define ___i_stl_declare_ht_(x) stl_declare_hash_table x
+
 #define stl_declare_hash_table(key_type, value_type)                                                                                                                                                   \
     ___stl_declare_hash_table(key_type, value_type);                                                                                                                                                   \
     void __stl_fn_hash(key_type, value_type, hash_map, create)(__stl_t_hash(key_type, value_type) * hash_ptr, size_t lenght, uintmax_t(*hash_fn)(char *), bool (*cmp_key_fn)(key_type a, key_type b)); \
@@ -64,6 +71,45 @@
     bool __stl_fn_hash(key_type, value_type, hash_map, exist)(__stl_t_hash(key_type, value_type) * hash_ptr, key_type key);                                                                            \
     bool __stl_fn_hash(key_type, value_type, hash_map, remove)(__stl_t_hash(key_type, value_type) * hash_ptr, key_type key);                                                                           \
     void __stl_fn_hash(key_type, value_type, hash_map, delete)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                         \
-    void __stl_fn_hash(key_type, value_type, hash_map, clear)(__stl_t_hash(key_type, value_type) * hash_ptr);
+    void __stl_fn_hash(key_type, value_type, hash_map, clear)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                          \
+    size_t __stl_fn_hash(key_type, value_type, hash_map, lenght)(__stl_t_hash(key_type, value_type) * hash_ptr);
 
+#define ___i___hash_map_foreach_0(key_type, value_type, p_hash, code)   \
+    {                                                                   \
+        for (size_t i = 0; i < p_hash->len; i++)                        \
+        {                                                               \
+            for (size_t k = 0; k < p_hash->buffer[i].count; k++)        \
+            {                                                           \
+                key_type cstl_key = p_hash->buffer[i].arr[k].key;       \
+                value_type cstl_value = p_hash->buffer[i].arr[k].value; \
+                code;                                                   \
+            }                                                           \
+        }                                                               \
+    }
+
+#define ___i___hash_map_foreach_1(key_type, value_type, p_hash, code, key_name) \
+    {                                                                           \
+        for (size_t i = 0; i < p_hash->len; i++)                                \
+        {                                                                       \
+            for (size_t k = 0; k < p_hash->buffer[i].count; k++)                \
+            {                                                                   \
+                key_type key_name = p_hash->buffer[i].arr[k].key;               \
+                value_type cstl_value = p_hash->buffer[i].arr[k].value;         \
+                code;                                                           \
+            }                                                                   \
+        }                                                                       \
+    }
+
+#define ___i___hash_map_foreach_2(key_type, value_type, p_hash, code, key_name, value_name) \
+    {                                                                                       \
+        for (size_t i = 0; i < p_hash->len; i++)                                            \
+        {                                                                                   \
+            for (size_t k = 0; k < p_hash->buffer[i].count; k++)                            \
+            {                                                                               \
+                key_type key_name = p_hash->buffer[i].arr[k].key;                           \
+                value_type value_name = p_hash->buffer[i].arr[k].value;                     \
+                code;                                                                       \
+            }                                                                               \
+        }                                                                                   \
+    }
 #endif

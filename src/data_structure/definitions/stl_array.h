@@ -2,6 +2,7 @@
 #define STL_ARRAY_H
 
 #include "../internal/stl_macros.h"
+#include "../internal/slt_foreach_macro.h"
 
 #ifndef CSTL_USE_RAW
 #define array(type) __stl_t(type, array)
@@ -27,12 +28,14 @@
 #define array_join(type) __stl_fn(type, array, join)
 #define array_reverse(type) __stl_fn(type, array, reverse)
 #define array_free(type) __stl_fn(type, array, free)
+#define array_lenght(type) __stl_fn(type, array, lenght)
 #endif
 
 #define stl_declare_array_alias(type, alias) \
     typedef type alias;                      \
     stl_declare_array(alias)
 
+#define stl_declare_array_for(...) call_macro_x_for_each(stl_declare_array, __VA_ARGS__)
 #define stl_declare_array(type)                                                                                             \
     typedef struct                                                                                                          \
     {                                                                                                                       \
@@ -60,6 +63,35 @@
     bool __stl_fn(type, array, all_cmp)(__stl_t(type, array) * arr, type value, bool (*cmp)(type a, type b));               \
     void __stl_fn(type, array, join)(__stl_t(type, array) * a, __stl_t(type, array) * b, size_t lenght_a, size_t lenght_b); \
     void __stl_fn(type, array, reverse)(__stl_t(type, array) * arr);                                                        \
-    void __stl_fn(type, array, free)(__stl_t(type, array) * arr);
+    void __stl_fn(type, array, free)(__stl_t(type, array) * arr);                                                           \
+    size_t __stl_fn(type, array, lenght)(__stl_t(type, array) * arr);
 
+#define array_foreach(type, p_arr, code, ...) macro_override(dummy, ##__VA_ARGS__, _4, _3, ___i___array_foreach_2, ___i___array_foreach_1, ___i___array_foreach_0)(type, p_arr, code, ##__VA_ARGS__)
+
+#define ___i___array_foreach_0(type, p_arr, code)                             \
+    {                                                                         \
+        for (size_t cstl_index = 0; cstl_index < arr->lenght; cstl_index++)   \
+        {                                                                     \
+            type castl_value = __stl_fn(type, array, get)(p_arr, cstl_index); \
+            code                                                              \
+        }                                                                     \
+    }
+
+#define ___i___array_foreach_1(type, p_arr, code, i_name)                 \
+    {                                                                     \
+        for (size_t i_name = 0; i_name < arr->lenght; i_name++)           \
+        {                                                                 \
+            type castl_value = __stl_fn(type, array, get)(p_arr, i_name); \
+            code                                                          \
+        }                                                                 \
+    }
+
+#define ___i___array_foreach_2(type, p_arr, code, i_name, v_name)    \
+    {                                                                \
+        for (size_t i_name = 0; i_name < arr->lenght; i_name++)      \
+        {                                                            \
+            type v_name = __stl_fn(type, array, get)(p_arr, i_name); \
+            code                                                     \
+        }                                                            \
+    }
 #endif

@@ -31,11 +31,14 @@
 #define vector_join(type) __stl_fn(type, vector, join)
 #define vector_reverse(type) __stl_fn(type, vector, reverse)
 #define vector_free(type) __stl_fn(type, vector, free)
+#define vector_lenght(type) __stl_fn(type, vector, lenght)
 #endif
 
 #define stl_declare_vector_alias(type) \
     typedef type alias;                \
     stl_declare_vector(type);
+
+#define stl_declare_vector_for(...) call_macro_x_for_each(stl_declare_vector, __VA_ARGS__)
 
 #define stl_declare_vector(type)                                                                                               \
     typedef struct                                                                                                             \
@@ -70,6 +73,36 @@
     bool __stl_fn(type, vector, all_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));                \
     void __stl_fn(type, vector, join)(__stl_t(type, vector) * a, __stl_t(type, vector) * b, size_t lenght_a, size_t lenght_b); \
     void __stl_fn(type, vector, reverse)(__stl_t(type, vector) * arr);                                                         \
-    void __stl_fn(type, vector, free)(__stl_t(type, vector) * arr);
+    void __stl_fn(type, vector, free)(__stl_t(type, vector) * arr);                                                            \
+    size_t __stl_fn(type, vector, lenght)(__stl_t(type, vector) * arr);
+
+#define vector_foreach(type, p_vec, code, ...) macro_override(dummy, ##__VA_ARGS__, _4, _3, ___i___vector_foreach_2, ___i___vector_foreach_1, ___i___vector_foreach_0)(type, p_vec, code, ##__VA_ARGS__)
+
+#define ___i___vector_foreach_0(type, p_vec, code)                            \
+    {                                                                         \
+        for (size_t cstl_index = 0; cstl_index < p_vec->count; cstl_index++)  \
+        {                                                                     \
+            type cstl_value = __stl_fn(type, vector, get)(p_vec, cstl_index); \
+            code                                                              \
+        }                                                                     \
+    }
+
+#define ___i___vector_foreach_1(type, p_vec, code, i_name)                \
+    {                                                                     \
+        for (size_t i_name = 0; i_name < p_vec->count; i_name++)          \
+        {                                                                 \
+            type cstl_value = __stl_fn(type, vector, get)(p_vec, i_name); \
+            code                                                          \
+        }                                                                 \
+    }
+
+#define ___i___vector_foreach_2(type, p_vec, code, i_name, v_name)    \
+    {                                                                 \
+        for (size_t i_name = 0; i_name < p_vec->count; i_name++)      \
+        {                                                             \
+            type v_name = __stl_fn(type, vector, get)(p_vec, i_name); \
+            code                                                      \
+        }                                                             \
+    }
 
 #endif

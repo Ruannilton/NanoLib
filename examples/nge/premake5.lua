@@ -1,5 +1,5 @@
 workspace "NanoLib"
-    configurations {"Debug","Release","Test"}
+    configurations {"Debug"}
     location "build"
     includedirs { "../../src" }
     

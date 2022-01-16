@@ -2,7 +2,8 @@
 #define STL_VECTOR_IMPL_H
 
 #include "stl_core.h"
-#include "../definitions/stl_vector.h"
+
+#define stl_implement_vector_for(...) call_macro_x_for_each(stl_implement_vector, __VA_ARGS__)
 
 #define __internal_vec_inc(vec, type, inc)                                            \
     {                                                                                 \
@@ -22,13 +23,7 @@
         }                                                                             \
     }
 
-#define stl_implement_vector_alias(type) \
-    typedef type alias;                  \
-    stl_implement_vector(alias);
-
 #define stl_implement_vector(type)                                                                                            \
-    stl_core_declare(type);                                                                                                   \
-    stl_declare_vector(type);                                                                                                 \
     void __stl_fn(type, vector, create)(__stl_t(type, vector) * vec, size_t lenght)                                           \
     {                                                                                                                         \
         vec->lenght = lenght;                                                                                                 \
@@ -151,6 +146,7 @@
         cstl_free(arr->buffer);                                                                                               \
         arr->count = 0;                                                                                                       \
         arr->lenght = 0;                                                                                                      \
-    }
+    }                                                                                                                         \
+    size_t __stl_fn(type, vector, lenght)(__stl_t(type, vector) * arr) { return arr->count; }
 
 #endif

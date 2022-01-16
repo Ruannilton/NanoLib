@@ -5,11 +5,12 @@
 void present(vector(string) * vec)
 {
     printf("\nPresenting:\n");
-    for (size_t i = 0; i < vec->count; i++)
-    {
-        string name = vector_get(string)(vec, i);
-        printf("%s, ", name);
-    }
+
+    vector_foreach(
+        string, vec,
+        {
+            printf("%s, ", cstl_value);
+        });
     printf("\n");
 }
 

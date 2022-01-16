@@ -1,16 +1,11 @@
 #ifndef STL_ARRAY_IMPL_H
 #define STL_ARRAY_IMPL_H
 
-#include "../definitions/stl_array.h"
 #include "stl_core.h"
 
-#define stl_implement_array_alias(type, alias) \
-    typedef type alias;                        \
-    stl_implement_array(alias)
+#define stl_implement_array_for(...) call_macro_x_for_each(stl_implement_array, __VA_ARGS__)
 
 #define stl_implement_array(type)                                                                                          \
-    stl_core_declare(type);                                                                                                \
-    stl_declare_array(type);                                                                                               \
     void __stl_fn(type, array, create)(__stl_t(type, array) * arr, size_t lenght)                                          \
     {                                                                                                                      \
         arr->lenght = lenght;                                                                                              \
@@ -97,5 +92,7 @@
     {                                                                                                                      \
         cstl_free(arr->buffer);                                                                                            \
         arr->lenght = 0;                                                                                                   \
-    }
+    }                                                                                                                      \
+    size_t __stl_fn(type, array, lenght)(__stl_t(type, array) * arr) { return arr->count; }
+
 #endif
