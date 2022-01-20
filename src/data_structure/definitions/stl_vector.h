@@ -13,6 +13,7 @@
 #define vector_remove(type) __stl_fn(type, vector, remove)
 #define vector_get(type) __stl_fn(type, vector, get)
 #define vector_first(type) __stl_fn(type, vector, first)
+#define vector_last(type) __stl_fn(type, vector, last)
 #define vector_push_front(type) __stl_fn(type, vector, push_front)
 #define vector_push_back(type) __stl_fn(type, vector, push_back)
 #define vector_pop_front(type) __stl_fn(type, vector, pop_front)

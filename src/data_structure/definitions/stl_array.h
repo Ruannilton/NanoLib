@@ -41,7 +41,7 @@
     {                                                                                                                       \
         type *buffer;                                                                                                       \
         size_t lenght;                                                                                                      \
-    } __stl_t(type, array);                                                                                                 \
+    } array(type);                                                                                                          \
                                                                                                                             \
     void __stl_fn(type, array, create)(__stl_t(type, array) * arr, size_t lenght);                                          \
     void __stl_fn(type, array, desloc)(__stl_t(type, array) * arr, size_t from, int steps);                                 \

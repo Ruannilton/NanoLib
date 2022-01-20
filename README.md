@@ -12,7 +12,7 @@ As chamadas de função seguem o seguinte padrão:
 estrutura de dados _ função (tipo) (parametros)
 
 A exemplo a criação de um array de inteiros:
-```
+```C
 array(int) my_arr;
 array_create(int)(&my_arr,16);
 ```
@@ -26,7 +26,7 @@ Para uma configuração mais fácil de manter e utilizar, é recomendado a cria�
 
 <ins>ds_declare.h</ins>
 
-```
+```C
 #include "data_structure/cstl.h"
 
 typedef char *string;
@@ -35,7 +35,7 @@ stl_declare_vector_for(string,int);
 stl_declare_array_for(string,int);
 ```
 <ins>ds_implement.c</ins>
-```
+```C
 #include "struct_def.h"
 
 stl_implement_core_for(string,int);
@@ -45,7 +45,7 @@ stl_implement_array_for(string,int);
 
 É recomendado seguir este padrão pois assim as declarações de tipos e funções podem ser reutilizadas no código sem precisar ficar chamando stl_declare toda vez que for ser utilizada alguma estrutura, é importante lembrar que stl_implement deve ser chamada apenas uma vez para cada tipo, utilizar a macro mais de uma vez para o mesmo tipo como em:
 
-```
+```C
 stl_implement_vector_for(string,string);
 ```
 Vai causar duas implementações para as mesmas funções e como consequência a compilação irá falhar, o mesmo vale para a utilização desta macro em um .h e reutilizá-lo em várias partes do código.
@@ -60,3 +60,9 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 ### Exemplos
 
 É possível encontrar [exemplos](examples) de utilização da biblioteca dentro da pasta examples, para executa-los de maneira rápida e direta é necessário a instalação da ferramente de build [Premake](https://premake.github.io/), posteriormente utilizar o script "run" mais apropriado para sua plataforma.
+
+
+### Documentação
+
+* [array](docs/stl_array.md)
+* [vector](docs/stl_vector.md)
