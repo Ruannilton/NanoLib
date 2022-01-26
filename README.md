@@ -67,3 +67,4 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 * [array](docs/stl_array.md)
 * [vector](docs/stl_vector.md)
 * [hash_map](docs/stl_hash.md)
+* [linked_list](docs/stl_linked_list.md)
