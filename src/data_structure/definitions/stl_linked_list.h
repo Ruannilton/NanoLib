@@ -52,7 +52,7 @@
         size_t count;                                                                                                                         \
     } __stl_t(type, linked_list);                                                                                                             \
                                                                                                                                               \
-    void __stl_fn(type, linked_list, create)(__stl_t(type, linked_list) * arr, size_t lenght);                                                \
+    void __stl_fn(type, linked_list, create)(__stl_t(type, linked_list) * arr);                                                               \
     void __stl_fn(type, linked_list, insert)(__stl_t(type, linked_list) * arr, type value, size_t index);                                     \
     void __stl_fn(type, linked_list, set)(__stl_t(type, linked_list) * arr, type value, size_t index);                                        \
     void __stl_fn(type, linked_list, add)(__stl_t(type, linked_list) * arr, type value);                                                      \

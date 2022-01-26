@@ -7,26 +7,12 @@
 #define stl_implement_linked_list_for(...) call_macro_x_for_each(stl_implement_linked_list, __VA_ARGS__)
 
 #define stl_implement_linked_list(type)                                                                                                      \
-    void __stl_fn(type, linked_list, create)(__stl_t(type, linked_list) * arr, size_t lenght)                                                \
+    void __stl_fn(type, linked_list, create)(__stl_t(type, linked_list) * arr)                                                               \
     {                                                                                                                                        \
         STL_VAL_NOT_NULL(arr);                                                                                                               \
         arr->count = 0;                                                                                                                      \
         arr->first = 0;                                                                                                                      \
         arr->last = 0;                                                                                                                       \
-        if (lenght > 0)                                                                                                                      \
-        {                                                                                                                                    \
-            arr->first = cstl_malloc(sizeof(__stl_t(type, linked_list_node_t)));                                                             \
-            __stl_t(type, linked_list_node_t) *current = arr->first;                                                                         \
-            arr->last = arr->first;                                                                                                          \
-            for (size_t i = 1; i < lenght; i++)                                                                                              \
-            {                                                                                                                                \
-                __stl_t(type, linked_list_node_t) *tmp = cstl_malloc(sizeof(__stl_t(type, linked_list_node_t)));                             \
-                current->pnext = tmp;                                                                                                        \
-                current = tmp;                                                                                                               \
-                arr->last = tmp;                                                                                                             \
-                arr->count++;                                                                                                                \
-            }                                                                                                                                \
-        }                                                                                                                                    \
     }                                                                                                                                        \
     void __stl_fn(type, linked_list, insert)(__stl_t(type, linked_list) * arr, type value, size_t index)                                     \
     {                                                                                                                                        \
