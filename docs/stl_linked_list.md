@@ -251,7 +251,7 @@ linked_list_clone(int)(&my_list,&other_list); // other_list = [0 1 2 3 4 5 6]
 ## <ins>linked_list_equal</ins>
 
 ```C
-bool linked_list_clone(type)(linked_list(type) * a,linked_list(type) *b);
+bool linked_list_equal(type)(linked_list(type) * a,linked_list(type) *b);
 ```
 
 Verifica se duas listas tem os mesmos valores
@@ -300,7 +300,7 @@ linked_list_fill(int)(&my_list,0); // my_list = [0 0 0 0 0]
 ## <ins>linked_list_find</ins>
 
 ```C
-int linked_list_find(type)(linked_list(type) * arr, type value);
+type linked_list_find(type)(linked_list(type) * arr, type value);
 ```
 
 Retorna a posição do primeiro elemento igual a value. Caso não seja encontrado retorna -1.

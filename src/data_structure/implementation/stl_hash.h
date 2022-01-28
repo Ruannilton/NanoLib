@@ -141,7 +141,7 @@
         }                                                                                                                                                                                             \
         return found;                                                                                                                                                                                 \
     }                                                                                                                                                                                                 \
-    void __stl_fn_hash(key_type, value_type, hash_map, delete)(__stl_t_hash(key_type, value_type) * hash_ptr)                                                                                         \
+    void __stl_fn_hash(key_type, value_type, hash_map, free)(__stl_t_hash(key_type, value_type) * hash_ptr)                                                                                           \
     {                                                                                                                                                                                                 \
         STL_VAL_NOT_NULL(hash_ptr);                                                                                                                                                                   \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \

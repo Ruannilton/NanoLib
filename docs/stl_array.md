@@ -447,7 +447,7 @@ Unifica os valores de dois arrays em um array, ao final do processo o array **a*
 Note que esta função realoca o bloco de memória do array **a** podendo assim mudar o seu endereço, tenha isto em mente caso exista alguma referência para um elemento deste array.
 
 ```C
-void array_join(type)(array(type)* a,array(type)* b,size_t lenght_a, size_t lenght_b);
+void array_join(type)(array(type)* a,array(type)* b);
 ```
 
 ### Parâmetros
@@ -455,8 +455,7 @@ void array_join(type)(array(type)* a,array(type)* b,size_t lenght_a, size_t leng
 |:---  |:---------------------- |
 |a     | ponteiro para um array |
 |b     | ponteiro para um array |
-|lenght_a | tamanho do array a |
-|lenght_b | tamanho do array b |
+
 
 ### Exemplo
 ```C
@@ -464,7 +463,7 @@ void array_join(type)(array(type)* a,array(type)* b,size_t lenght_a, size_t leng
 array(int) my_array; // my_array = [0,1,2]
 array(int) other_array; // other_array = [3,4]
 
-array_join(int)(&my_array,&other_array,my_array.lenght,other_array.lenght);
+array_join(int)(&my_array,&other_array);
 
 // my_array = [0,1,2,3,4]
 // other_array = [3,4]

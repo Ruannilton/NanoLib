@@ -354,7 +354,7 @@ vector_fill(&my_vector,0); // my_vector = [0,0,0,0,0]
 Busca por um valor no vector e retorna a posição da primeira ocorrência, caso não seja encontrado é retornado -1.
 
 ```C
-int vector_find(type)(vector(type)* arr,type value);
+type vector_find(type)(vector(type)* arr,type value);
 ```
 
 ### Parâmetros
@@ -377,7 +377,7 @@ int f2 = vector_find(&my_vector,2); // f2 = -1
 Busca por um valor no vector usando uma função customizada para comparação e retorna a posição da primeira ocorrência, caso não seja encontrado é retornado -1.
 
 ```C
-int vector_find_cmp(type)(vector(type)* arr,type value,bool (*cmp)(type a, type b));
+type vector_find_cmp(type)(vector(type)* arr,type value,bool (*cmp)(type a, type b));
 ```
 
 ### Parâmetros
@@ -442,7 +442,7 @@ printf("vector lenght: %d\n", my_vector.lenght); //my_vector.lenght = 5
 Conta quantas ocorrências de um valor há no vector.
 
 ```C
-int vector_count(type)(vector(type)* arr,type value);
+size_t vector_count(type)(vector(type)* arr,type value);
 ```
 
 ### Parâmetros
@@ -464,7 +464,7 @@ int n = vector_count(int)(&my_vector,0); // n = 3
 Conta quantas ocorrências de um valor há no vector usando uma função customizada para realizar a comparação.
 
 ```C
-int vector_count_cmp(type)(vector(type)* arr,type value,bool (*cmp)(type a, type b));
+size_t vector_count_cmp(type)(vector(type)* arr,type value,bool (*cmp)(type a, type b));
 ```
 
 ### Parâmetros
@@ -490,7 +490,7 @@ int i = vector_find_cmp(int)(&my_vector,0,is_even); // i = 4
 Verifica se todos os valores do vector são iguais ao valor informado.
 
 ```C
-int vector_all(type)(vector(type)* arr,type value);
+bool vector_all(type)(vector(type)* arr,type value);
 ```
 
 ### Parâmetros
@@ -513,7 +513,7 @@ bool a = vector_all(int)(&my_vector,0); // a = true
 Verifica se todos os valores do vector são iguais ao valor informado utilizando uma função customizada para realizar a comparação.
 
 ```C
-int vector_all_cmp(type)(vector(type)* arr,type value, bool (*cmp)(type a, type b));
+bool vector_all_cmp(type)(vector(type)* arr,type value, bool (*cmp)(type a, type b));
 ```
 
 ### Parâmetros
@@ -548,7 +548,7 @@ Unifica os valores de dois vectors em um vector, ao final do processo o vector *
 Note que esta função realoca o bloco de memória do vector **a** podendo assim mudar o seu endereço, tenha isto em mente caso exista alguma referência para um elemento deste vector.
 
 ```C
-void vector_join(type)(vector(type)* a,vector(type)* b,size_t lenght_a, size_t lenght_b);
+void vector_join(type)(vector(type)* a,vector(type)* b);
 ```
 
 ### Parâmetros
@@ -556,8 +556,6 @@ void vector_join(type)(vector(type)* a,vector(type)* b,size_t lenght_a, size_t l
 |:---  |:---------------------- |
 |a     | ponteiro para um vector |
 |b     | ponteiro para um vector |
-|lenght_a | tamanho do vector a |
-|lenght_b | tamanho do vector b |
 
 ### Exemplo
 ```C
@@ -582,7 +580,7 @@ void vector_reverse(type)(vector(type)* arr);
 ### Parâmetros
 |nome  | descrição              |
 |:---  |:---------------------- |
-|a     | ponteiro para um vector |
+|arr   | ponteiro para um vector |
 
 ### Exemplo
 
@@ -602,7 +600,7 @@ void vector_free(type)(vector(type)* arr);
 ### Parâmetros
 |nome  | descrição              |
 |:---  |:---------------------- |
-|a     | ponteiro para um vector |
+|arr   | ponteiro para um vector |
 
 ```C
 vector(int) my_vector; // my_vector = [0,1,2]

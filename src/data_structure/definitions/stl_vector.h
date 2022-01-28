@@ -41,40 +41,40 @@
 
 #define stl_declare_vector_for(...) call_macro_x_for_each(stl_declare_vector, __VA_ARGS__)
 
-#define stl_declare_vector(type)                                                                                               \
-    typedef struct                                                                                                             \
-    {                                                                                                                          \
-        type *buffer;                                                                                                          \
-        size_t lenght;                                                                                                         \
-        size_t count;                                                                                                          \
-    } __stl_t(type, vector);                                                                                                   \
-                                                                                                                               \
-    void __stl_fn(type, vector, create)(__stl_t(type, vector) * arr, size_t lenght);                                           \
-    void __stl_fn(type, vector, desloc)(__stl_t(type, vector) * arr, size_t from, int steps);                                  \
-    void __stl_fn(type, vector, insert)(__stl_t(type, vector) * arr, type value, size_t index);                                \
-    void __stl_fn(type, vector, set)(__stl_t(type, vector) * arr, type value, size_t index);                                   \
-    void __stl_fn(type, vector, remove)(__stl_t(type, vector) * arr, size_t index);                                            \
-    type __stl_fn(type, vector, get)(__stl_t(type, vector) * arr, size_t index);                                               \
-    type __stl_fn(type, vector, first)(__stl_t(type, vector) * arr);                                                           \
-    type __stl_fn(type, vector, last)(__stl_t(type, vector) * arr);                                                            \
-    void __stl_fn(type, vector, push_front)(__stl_t(type, vector) * arr, type value);                                          \
-    void __stl_fn(type, vector, push_back)(__stl_t(type, vector) * arr, type value);                                           \
-    void __stl_fn(type, vector, pop_front)(__stl_t(type, vector) * arr);                                                       \
-    void __stl_fn(type, vector, pop_back)(__stl_t(type, vector) * arr);                                                        \
-    void __stl_fn(type, vector, copy)(__stl_t(type, vector) * arr, __stl_t(type, vector) * out, size_t start, size_t end);     \
-    void __stl_fn(type, vector, clone)(__stl_t(type, vector) * arr, __stl_t(type, vector) * out);                              \
-    bool __stl_fn(type, vector, equal)(__stl_t(type, vector) * a, __stl_t(type, vector) * b);                                  \
-    void __stl_fn(type, vector, fill)(__stl_t(type, vector) * arr, type value);                                                \
-    int __stl_fn(type, vector, find)(__stl_t(type, vector) * arr, type value);                                                 \
-    int __stl_fn(type, vector, find_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));                \
-    void __stl_fn(type, vector, resize)(__stl_t(type, vector) * arr, size_t lenght);                                           \
-    size_t __stl_fn(type, vector, count)(__stl_t(type, vector) * arr, type value);                                             \
-    size_t __stl_fn(type, vector, count_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));            \
-    bool __stl_fn(type, vector, all)(__stl_t(type, vector) * arr, type value);                                                 \
-    bool __stl_fn(type, vector, all_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));                \
-    void __stl_fn(type, vector, join)(__stl_t(type, vector) * a, __stl_t(type, vector) * b, size_t lenght_a, size_t lenght_b); \
-    void __stl_fn(type, vector, reverse)(__stl_t(type, vector) * arr);                                                         \
-    void __stl_fn(type, vector, free)(__stl_t(type, vector) * arr);                                                            \
+#define stl_declare_vector(type)                                                                                           \
+    typedef struct                                                                                                         \
+    {                                                                                                                      \
+        type *buffer;                                                                                                      \
+        size_t lenght;                                                                                                     \
+        size_t count;                                                                                                      \
+    } __stl_t(type, vector);                                                                                               \
+                                                                                                                           \
+    void __stl_fn(type, vector, create)(__stl_t(type, vector) * arr, size_t lenght);                                       \
+    void __stl_fn(type, vector, desloc)(__stl_t(type, vector) * arr, size_t from, int steps);                              \
+    void __stl_fn(type, vector, insert)(__stl_t(type, vector) * arr, type value, size_t index);                            \
+    void __stl_fn(type, vector, set)(__stl_t(type, vector) * arr, type value, size_t index);                               \
+    void __stl_fn(type, vector, remove)(__stl_t(type, vector) * arr, size_t index);                                        \
+    type __stl_fn(type, vector, get)(__stl_t(type, vector) * arr, size_t index);                                           \
+    type __stl_fn(type, vector, first)(__stl_t(type, vector) * arr);                                                       \
+    type __stl_fn(type, vector, last)(__stl_t(type, vector) * arr);                                                        \
+    void __stl_fn(type, vector, push_front)(__stl_t(type, vector) * arr, type value);                                      \
+    void __stl_fn(type, vector, push_back)(__stl_t(type, vector) * arr, type value);                                       \
+    void __stl_fn(type, vector, pop_front)(__stl_t(type, vector) * arr);                                                   \
+    void __stl_fn(type, vector, pop_back)(__stl_t(type, vector) * arr);                                                    \
+    void __stl_fn(type, vector, copy)(__stl_t(type, vector) * arr, __stl_t(type, vector) * out, size_t start, size_t end); \
+    void __stl_fn(type, vector, clone)(__stl_t(type, vector) * arr, __stl_t(type, vector) * out);                          \
+    bool __stl_fn(type, vector, equal)(__stl_t(type, vector) * a, __stl_t(type, vector) * b);                              \
+    void __stl_fn(type, vector, fill)(__stl_t(type, vector) * arr, type value);                                            \
+    int __stl_fn(type, vector, find)(__stl_t(type, vector) * arr, type value);                                             \
+    int __stl_fn(type, vector, find_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));            \
+    void __stl_fn(type, vector, resize)(__stl_t(type, vector) * arr, size_t lenght);                                       \
+    size_t __stl_fn(type, vector, count)(__stl_t(type, vector) * arr, type value);                                         \
+    size_t __stl_fn(type, vector, count_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));        \
+    bool __stl_fn(type, vector, all)(__stl_t(type, vector) * arr, type value);                                             \
+    bool __stl_fn(type, vector, all_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));            \
+    void __stl_fn(type, vector, join)(__stl_t(type, vector) * a, __stl_t(type, vector) * b);                               \
+    void __stl_fn(type, vector, reverse)(__stl_t(type, vector) * arr);                                                     \
+    void __stl_fn(type, vector, free)(__stl_t(type, vector) * arr);                                                        \
     size_t __stl_fn(type, vector, lenght)(__stl_t(type, vector) * arr);
 
 #define vector_foreach(type, p_vec, code, ...) macro_override(dummy, ##__VA_ARGS__, _4, _3, ___i___vector_foreach_2, ___i___vector_foreach_1, ___i___vector_foreach_0)(type, p_vec, code, ##__VA_ARGS__)

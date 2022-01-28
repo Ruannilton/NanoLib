@@ -181,10 +181,10 @@ bool exist = hash_map_exist(&my_hash,1); // exist = false
 exist = hash_map_exist(&my_hash,0); // exist = true
 ```
 
-## <ins>hash_map_delete</ins>
+## <ins>hash_map_free</ins>
 
 ```C
-void hash_map_delete(hash_map(key_type, value_type) * hash_ptr);
+void hash_map_free(hash_map(key_type, value_type) * hash_ptr);
 ```
 
 Libera a memória alocada pelo hash_map.
@@ -198,7 +198,7 @@ Libera a memória alocada pelo hash_map.
 
 ```C
 hash_map(int,int) my_hash;
-hash_map_delete(&my_hash);
+hash_map_free(&my_hash);
 ```
 
 ## <ins>hash_map_clear</ins>

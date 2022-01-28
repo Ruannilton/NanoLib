@@ -23,7 +23,7 @@
 #define hash_map_remove(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, remove)
 #define hash_map_get(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, get)
 #define hash_map_exist(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, exist)
-#define hash_map_delete(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, delete)
+#define hash_map_free(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, free)
 #define hash_map_clear(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, clear)
 #define hash_map_lenght(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, lenght)
 #endif
@@ -70,7 +70,7 @@
     bool __stl_fn_hash(key_type, value_type, hash_map, get)(__stl_t_hash(key_type, value_type) * hash_ptr, key_type key, value_type * value);                                                          \
     bool __stl_fn_hash(key_type, value_type, hash_map, exist)(__stl_t_hash(key_type, value_type) * hash_ptr, key_type key);                                                                            \
     bool __stl_fn_hash(key_type, value_type, hash_map, remove)(__stl_t_hash(key_type, value_type) * hash_ptr, key_type key);                                                                           \
-    void __stl_fn_hash(key_type, value_type, hash_map, delete)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                         \
+    void __stl_fn_hash(key_type, value_type, hash_map, free)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                           \
     void __stl_fn_hash(key_type, value_type, hash_map, clear)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                          \
     size_t __stl_fn_hash(key_type, value_type, hash_map, lenght)(__stl_t_hash(key_type, value_type) * hash_ptr);
 
