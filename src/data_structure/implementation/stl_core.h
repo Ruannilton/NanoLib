@@ -2,8 +2,8 @@
 #define STL_CORE_IMPL_H
 
 #include "../internal/stl_macros.h"
-#include "../internal/stl_validations.h"
 #include "../internal/slt_foreach_macro.h"
+#include <assert.h>
 
 #define stl_implement_core_for(...) call_macro_x_for_each(stl_core_implement, __VA_ARGS__)
 
@@ -36,14 +36,14 @@
 #define stl_core_implement(type)                                                                                         \
     void __stl_fn(type, __base_name, create)(type * *buffer, size_t lenght)                                              \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         *buffer = cstl_malloc(sizeof(type) * lenght);                                                                    \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, desloc)(type * buffer, size_t lenght, size_t from, int steps)                       \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         if (steps > 0)                                                                                                   \
         {                                                                                                                \
             size_t mv_size = ((lenght - from) - steps) * sizeof(type);                                                   \
@@ -69,8 +69,8 @@
     }                                                                                                                    \
     void __stl_fn(type, __base_name, grow)(type * *buffer, size_t * lenght)                                              \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         size_t new_len = (*lenght) * 1.5f;                                                                               \
         void *new_ptr = cstl_realloc(*buffer, new_len * sizeof(type));                                                   \
         if (new_ptr)                                                                                                     \
@@ -81,40 +81,41 @@
     }                                                                                                                    \
     void __stl_fn(type, __base_name, push_back)(type * buffer, type value, size_t * index)                               \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
-        STL_VAL_NOT_NULL(index);                                                                                         \
+        assert(index != NULL);                                                                                           \
+        assert(buffer != NULL);                                                                                          \
         buffer[(*index)] = value;                                                                                        \
         *index = (*index) + 1;                                                                                           \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, insert)(type * buffer, type value, size_t index, size_t lenght)                     \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
+        assert(index < lenght);                                                                                          \
         __stl_fn(type, __base_name, desloc)(buffer, lenght, index, 1);                                                   \
         buffer[index] = value;                                                                                           \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, push_front)(type * buffer, type value, size_t lenght)                               \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         __stl_fn(type, __base_name, insert)(buffer, value, 0, lenght);                                                   \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, set)(type * buffer, type value, size_t index)                                       \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
         buffer[index] = value;                                                                                           \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, pop_front)(type * buffer, size_t lenght)                                            \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         __stl_fn(type, __base_name, desloc)(buffer, lenght, 1, -1);                                                      \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, remove)(type * buffer, size_t index, size_t lenght)                                 \
     {                                                                                                                    \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
+        assert(index < lenght);                                                                                          \
         if (index != lenght - 1)                                                                                         \
         {                                                                                                                \
             size_t mv_size = ((lenght - 1) - index) * sizeof(type);                                                      \
@@ -125,39 +126,42 @@
     }                                                                                                                    \
     type __stl_fn(type, __base_name, get)(type * buffer, size_t index)                                                   \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
         return buffer[index];                                                                                            \
     }                                                                                                                    \
     type __stl_fn(type, __base_name, first)(type * buffer)                                                               \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
         return buffer[0];                                                                                                \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, copy)(type * buffer, type * *out, size_t start, size_t end)                         \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(out);                                                                                           \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
-        STL_VAL_NOT_ZERO(end);                                                                                           \
+        assert(buffer != NULL);                                                                                          \
+        assert(out != NULL);                                                                                             \
+        assert(*out != NULL);                                                                                            \
+        assert(end > 0);                                                                                                 \
         size_t len = end - start;                                                                                        \
         cstl_memcpy(*out, &buffer[start], len * sizeof(type));                                                           \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, clone)(type * buffer, type * *out, size_t lenght)                                   \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(out);                                                                                           \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(out != NULL);                                                                                             \
+        assert(*out != NULL);                                                                                            \
+        assert(lenght > 0);                                                                                              \
         cstl_memcpy(*out, buffer, lenght * sizeof(type));                                                                \
     }                                                                                                                    \
     bool __stl_fn(type, __base_name, equal)(type * a, type * b, size_t lenght)                                           \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(a);                                                                                             \
-        STL_VAL_NOT_NULL(b);                                                                                             \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
+        assert(a != NULL);                                                                                               \
+        assert(b != NULL);                                                                                               \
+        assert(lenght > 0);                                                                                              \
         return cstl_memcmp(a, b, lenght * sizeof(type)) == 0;                                                            \
     }                                                                                                                    \
     void __stl_fn(type, __base_name, fill)(type * buffer, type value, size_t lenght)                                     \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         for (size_t i = 0; i < lenght; i++)                                                                              \
         {                                                                                                                \
             buffer[i] = value;                                                                                           \
@@ -165,7 +169,8 @@
     }                                                                                                                    \
     int __stl_fn(type, __base_name, find)(type * buffer, type value, size_t lenght)                                      \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         for (uint64_t i = 0; i < lenght; i++)                                                                            \
         {                                                                                                                \
             if (buffer[i] == value)                                                                                      \
@@ -175,8 +180,9 @@
     }                                                                                                                    \
     int __stl_fn(type, __base_name, find_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b))     \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(cmp);                                                                                           \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(cmp != NULL);                                                                                             \
+        assert(lenght > 0);                                                                                              \
         for (uint64_t i = 0; i < lenght; i++)                                                                            \
         {                                                                                                                \
             if ((*cmp)(buffer[i], value) == true)                                                                        \
@@ -186,15 +192,17 @@
     }                                                                                                                    \
     void __stl_fn(type, __base_name, resize)(type * *buffer, size_t lenght)                                              \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
-        STL_VAL_NOT_ZERO(lenght);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(*buffer != NULL);                                                                                         \
+        assert(lenght > 0);                                                                                              \
         void *new_ptr = cstl_realloc(*buffer, lenght * sizeof(type));                                                    \
         if (new_ptr)                                                                                                     \
             *buffer = new_ptr;                                                                                           \
     }                                                                                                                    \
     size_t __stl_fn(type, __base_name, count)(type * buffer, type value, size_t lenght)                                  \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         size_t count = 0;                                                                                                \
         for (size_t i = 0; i < lenght; i++)                                                                              \
         {                                                                                                                \
@@ -207,8 +215,9 @@
     }                                                                                                                    \
     size_t __stl_fn(type, __base_name, count_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b)) \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(cmp);                                                                                           \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(cmp != NULL);                                                                                             \
+        assert(lenght > 0);                                                                                              \
         size_t count = 0;                                                                                                \
         for (size_t i = 0; i < lenght; i++)                                                                              \
         {                                                                                                                \
@@ -221,7 +230,8 @@
     }                                                                                                                    \
     bool __stl_fn(type, __base_name, all)(type * buffer, type value, size_t lenght)                                      \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         for (uint64_t i = 0; i < lenght; i++)                                                                            \
         {                                                                                                                \
             if (!cstl_memcmp((void *)&buffer[i], (void *)(&value), sizeof(type)) == 0)                                   \
@@ -233,8 +243,9 @@
     }                                                                                                                    \
     bool __stl_fn(type, __base_name, all_cmp)(type * buffer, type value, size_t lenght, bool (*cmp)(type a, type b))     \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
-        STL_VAL_NOT_NULL(cmp);                                                                                           \
+        assert(buffer != NULL);                                                                                          \
+        assert(cmp != NULL);                                                                                             \
+        assert(lenght > 0);                                                                                              \
         for (uint64_t i = 0; i < lenght; i++)                                                                            \
         {                                                                                                                \
             if ((*cmp)(buffer[i], value) != true)                                                                        \
@@ -246,8 +257,11 @@
     }                                                                                                                    \
     void __stl_fn(type, __base_name, join)(type * *a, type * b, size_t lenght_a, size_t lenght_b)                        \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(a);                                                                                             \
-        STL_VAL_NOT_NULL(b);                                                                                             \
+        assert(a != NULL);                                                                                               \
+        assert(*a != NULL);                                                                                              \
+        assert(b != NULL);                                                                                               \
+        assert(lenght_a > 0);                                                                                            \
+        assert(lenght_b > 0);                                                                                            \
         size_t new_size = sizeof(type) * (lenght_a + lenght_b);                                                          \
         void *new_ptr = cstl_realloc(*a, new_size);                                                                      \
         if (new_ptr)                                                                                                     \
@@ -258,7 +272,8 @@
     }                                                                                                                    \
     void __stl_fn(type, __base_name, reverse)(type * buffer, size_t lenght)                                              \
     {                                                                                                                    \
-        STL_VAL_NOT_NULL(buffer);                                                                                        \
+        assert(buffer != NULL);                                                                                          \
+        assert(lenght > 0);                                                                                              \
         size_t start = 0;                                                                                                \
         size_t end = lenght - 1;                                                                                         \
                                                                                                                          \
