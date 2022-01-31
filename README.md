@@ -68,3 +68,39 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 * [vector](docs/stl_vector.md)
 * [hash_map](docs/stl_hash.md)
 * [linked_list](docs/stl_linked_list.md)
+
+### Roadmap
+<br/>
+x | implementado
+<br>- | não será implementado </br>
+<br/>
+
+|          | Array  | HashMap  | Linked List  | Vector | Stack | Queue |
+| :------- | :----: | :------: | :----------: | :----: | :---: | :---: |
+| create   |   x    |     x    |      x       |   x    |       |       |        
+| insert   |   x    |          |      x       |   x    |       |       | 
+| set      |   x    |          |      x       |   x    |       |       | 
+| get      |   x    |     x    |      x       |   x    |       |       | 
+| first    |   x    |     -    |      x       |   x    |       |       | 
+| last     |        |     -    |              |   x    |       |       | 
+| remove   |   x    |     x    |      x       |   x    |       |       | 
+| lenght   |   x    |     x    |      x       |   x    |       |       | 
+| copy     |   x    |          |      x       |   x    |       |       | 
+| clone    |   x    |          |      x       |   x    |       |       | 
+| equal    |   x    |          |      x       |   x    |       |       | 
+| fill     |   x    |     -    |      x       |   x    |       |       | 
+| find     |   x    |     -    |      x       |   x    |       |       | 
+| find_cmp |   x    |     -    |      x       |   x    |       |       | 
+| resize   |   x    |     -    |      -       |   x    |       |       | 
+| count    |   x    |          |      x       |   x    |       |       | 
+| count_cmp|   x    |          |      x       |   x    |       |       | 
+| all      |   x    |          |      x       |   x    |       |       | 
+| all_cmp  |   x    |          |      x       |   x    |       |       | 
+| any      |        |          |              |        |       |       | 
+| any_cmp  |        |          |              |        |       |       | 
+| join     |   x    |          |      x       |   x    |       |       | 
+| reverse  |   x    |     -    |      x       |   x    |       |       | 
+| clear    |   -    |     x    |      -       |        |       |       | 
+| free     |   x    |     x    |      x       |   x    |       |       | 
+| map      |        |          |              |        |       |       | 
+| filter   |        |          |              |        |       |       | 
