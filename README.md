@@ -78,14 +78,14 @@ x | implementado
 |          | Array  | HashMap  | Linked List  | Vector | Stack | Queue |
 | :------- | :----: | :------: | :----------: | :----: | :---: | :---: |
 | create   |   x    |     x    |      x       |   x    |       |       |        
-| insert   |   x    |          |      x       |   x    |       |       | 
-| set      |   x    |          |      x       |   x    |       |       | 
+| insert   |   x    |     -    |      x       |   x    |       |       | 
+| set      |   x    |     -    |      x       |   x    |       |       | 
 | get      |   x    |     x    |      x       |   x    |       |       | 
 | first    |   x    |     -    |      x       |   x    |       |       | 
 | last     |        |     -    |              |   x    |       |       | 
 | remove   |   x    |     x    |      x       |   x    |       |       | 
 | lenght   |   x    |     x    |      x       |   x    |       |       | 
-| copy     |   x    |          |      x       |   x    |       |       | 
+| copy     |   x    |     -    |      x       |   x    |       |       | 
 | clone    |   x    |          |      x       |   x    |       |       | 
 | equal    |   x    |          |      x       |   x    |       |       | 
 | fill     |   x    |     -    |      x       |   x    |       |       | 

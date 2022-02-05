@@ -172,6 +172,20 @@
     {                                                                                                                                                                                                 \
         assert(hash_ptr != NULL);                                                                                                                                                                     \
         return hash_ptr->count;                                                                                                                                                                       \
+    }                                                                                                                                                                                                 \
+    void __stl_fn_hash(key_type, value_type, hash_map, clone)(__stl_t_hash(key_type, value_type) * source, __stl_t_hash(key_type, value_type) * *dest)                                                \
+    {                                                                                                                                                                                                 \
+        (*dest)->len = source->len;                                                                                                                                                                   \
+        (*dest)->count = source->count;                                                                                                                                                               \
+        (*dest)->hash_fn = source->hash_fn;                                                                                                                                                           \
+        (*dest)->cmp_key_fn = source->cmp_key_fn;                                                                                                                                                     \
+        (*dest)->buffer = cstl_malloc(((*dest)->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t))));                                                                         \
+        for (size_t i = 0; i < (*dest)->len; i++)                                                                                                                                                     \
+        {                                                                                                                                                                                             \
+            (*dest)->buffer[i].count = source->buffer[i].count;                                                                                                                                       \
+            (*dest)->buffer[i].len = source->buffer[i].len;                                                                                                                                           \
+            cstl_memcpy((*dest)->buffer[i].arr, source->buffer[i].arr, sizeof(__stl_bucket(key_type, value_type)) * source->buffer[i].len);                                                           \
+        }                                                                                                                                                                                             \
     }
 
 #endif

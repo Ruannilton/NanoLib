@@ -26,6 +26,8 @@
 #define hash_map_free(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, free)
 #define hash_map_clear(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, clear)
 #define hash_map_lenght(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, lenght)
+#define hash_map_clone(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, clone)
+#define hash_map_equal(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, equal)
 #endif
 
 #define stl_declare_hash_table_for(...) call_macro_x_for_each(___i_stl_declare_ht_, __VA_ARGS__)
@@ -72,6 +74,8 @@
     bool __stl_fn_hash(key_type, value_type, hash_map, remove)(__stl_t_hash(key_type, value_type) * hash_ptr, key_type key);                                                                           \
     void __stl_fn_hash(key_type, value_type, hash_map, free)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                           \
     void __stl_fn_hash(key_type, value_type, hash_map, clear)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                          \
+    void __stl_fn_hash(key_type, value_type, hash_map, clone)(__stl_t_hash(key_type, value_type) * source, __stl_t_hash(key_type, value_type) * *dest);                                                \
+    void __stl_fn_hash(key_type, value_type, hash_map, equal)(__stl_t_hash(key_type, value_type) * a,key_type, value_type) * b);                                                                       \
     size_t __stl_fn_hash(key_type, value_type, hash_map, lenght)(__stl_t_hash(key_type, value_type) * hash_ptr);
 
 #define ___i___hash_map_foreach_0(key_type, value_type, p_hash, code)   \
