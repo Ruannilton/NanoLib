@@ -75,8 +75,14 @@
     void __stl_fn_hash(key_type, value_type, hash_map, free)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                           \
     void __stl_fn_hash(key_type, value_type, hash_map, clear)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                          \
     void __stl_fn_hash(key_type, value_type, hash_map, clone)(__stl_t_hash(key_type, value_type) * source, __stl_t_hash(key_type, value_type) * *dest);                                                \
-    void __stl_fn_hash(key_type, value_type, hash_map, equal)(__stl_t_hash(key_type, value_type) * a,key_type, value_type) * b);                                                                       \
-    size_t __stl_fn_hash(key_type, value_type, hash_map, lenght)(__stl_t_hash(key_type, value_type) * hash_ptr);
+    bool __stl_fn_hash(key_type, value_type, hash_map, equal)(__stl_t_hash(key_type, value_type) * a,key_type, value_type) * b);                                                                       \
+    size_t __stl_fn_hash(key_type, value_type, hash_map, lenght)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                       \
+    size_t __stl_fn_hash(key_type, value_type, hash_map, count_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value);                                                               \
+    size_t __stl_fn_hash(key_type, value_type, hash_map, count_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b));                  \
+    bool __stl_fn_hash(key_type, value_type, hash_map, all_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value);                                                                   \
+    bool __stl_fn_hash(key_type, value_type, hash_map, all_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b));                      \
+    bool __stl_fn_hash(key_type, value_type, hash_map, any_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value);                                                                   \
+    bool __stl_fn_hash(key_type, value_type, hash_map, any_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b));
 
 #define ___i___hash_map_foreach_0(key_type, value_type, p_hash, code)   \
     {                                                                   \

@@ -70,10 +70,11 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 * [linked_list](docs/stl_linked_list.md)
 
 ### Roadmap
-<br/>
-x | implementado
-<br>- | não será implementado </br>
-<br/>
+<br>
+<p> x | implementado </p>
+<p> - | não será implementado </p>
+<p> T | em teste </p>
+
 
 |          | Array  | HashMap  | Linked List  | Vector | Stack | Queue |
 | :------- | :----: | :------: | :----------: | :----: | :---: | :---: |
@@ -86,18 +87,18 @@ x | implementado
 | remove   |   x    |     x    |      x       |   x    |       |       | 
 | lenght   |   x    |     x    |      x       |   x    |       |       | 
 | copy     |   x    |     -    |      x       |   x    |       |       | 
-| clone    |   x    |          |      x       |   x    |       |       | 
-| equal    |   x    |          |      x       |   x    |       |       | 
+| clone    |   x    |     T    |      x       |   x    |       |       | 
+| equal    |   x    |     T    |      x       |   x    |       |       | 
 | fill     |   x    |     -    |      x       |   x    |       |       | 
 | find     |   x    |     -    |      x       |   x    |       |       | 
 | find_cmp |   x    |     -    |      x       |   x    |       |       | 
 | resize   |   x    |     -    |      -       |   x    |       |       | 
-| count    |   x    |          |      x       |   x    |       |       | 
-| count_cmp|   x    |          |      x       |   x    |       |       | 
-| all      |   x    |          |      x       |   x    |       |       | 
-| all_cmp  |   x    |          |      x       |   x    |       |       | 
-| any      |        |          |              |        |       |       | 
-| any_cmp  |        |          |              |        |       |       | 
+| count    |   x    |     T    |      x       |   x    |       |       | 
+| count_cmp|   x    |     T    |      x       |   x    |       |       | 
+| all      |   x    |     T    |      x       |   x    |       |       | 
+| all_cmp  |   x    |     T    |      x       |   x    |       |       | 
+| any      |        |     T    |              |        |       |       | 
+| any_cmp  |        |     T    |              |        |       |       | 
 | join     |   x    |          |      x       |   x    |       |       | 
 | reverse  |   x    |     -    |      x       |   x    |       |       | 
 | clear    |   -    |     x    |      -       |        |       |       | 

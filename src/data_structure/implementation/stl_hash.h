@@ -186,6 +186,97 @@
             (*dest)->buffer[i].len = source->buffer[i].len;                                                                                                                                           \
             cstl_memcpy((*dest)->buffer[i].arr, source->buffer[i].arr, sizeof(__stl_bucket(key_type, value_type)) * source->buffer[i].len);                                                           \
         }                                                                                                                                                                                             \
+    }                                                                                                                                                                                                 \
+    bool __stl_fn_hash(key_type, value_type, hash_map, equal)(__stl_t_hash(key_type, value_type) * a, __stl_t_hash(key_type, value_type) * b)                                                         \
+    {                                                                                                                                                                                                 \
+        if (a->len == b->len &&                                                                                                                                                                       \
+            a->count == b->count &&                                                                                                                                                                   \
+            a->hash_fn == b->hash_fn &&                                                                                                                                                               \
+            a->cmp_key_fn == b->cmp_key_fn)                                                                                                                                                           \
+        {                                                                                                                                                                                             \
+            for (size_t i = 0; i < a->len; i++)                                                                                                                                                       \
+            {                                                                                                                                                                                         \
+                if (!(a->buffer[i].len == b->buffer[i].len &&                                                                                                                                         \
+                      cstl_memcmp(a->buffer[i].arr, b->buffer[i].arr, sizeof(__stl_bucket(key_type, value_type)) * a->buffer[i].len) == 0))                                                           \
+                    return false;                                                                                                                                                                     \
+            }                                                                                                                                                                                         \
+            return true;                                                                                                                                                                              \
+        }                                                                                                                                                                                             \
+        return false;                                                                                                                                                                                 \
+    }                                                                                                                                                                                                 \
+    size_t __stl_fn_hash(key_type, value_type, hash_map, count_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value)                                                               \
+    {                                                                                                                                                                                                 \
+        size_t count = 0;                                                                                                                                                                             \
+        for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
+        {                                                                                                                                                                                             \
+            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
+            {                                                                                                                                                                                         \
+                if (hash_ptr->buffer[i].arr[j].value == value)                                                                                                                                        \
+                    count++;                                                                                                                                                                          \
+            }                                                                                                                                                                                         \
+        }                                                                                                                                                                                             \
+        return count;                                                                                                                                                                                 \
+    }                                                                                                                                                                                                 \
+    size_t __stl_fn_hash(key_type, value_type, hash_map, count_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b))                  \
+    {                                                                                                                                                                                                 \
+        size_t count = 0;                                                                                                                                                                             \
+        for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
+        {                                                                                                                                                                                             \
+            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
+            {                                                                                                                                                                                         \
+                if (cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                     \
+                    count++;                                                                                                                                                                          \
+            }                                                                                                                                                                                         \
+        }                                                                                                                                                                                             \
+        return count;                                                                                                                                                                                 \
+    }                                                                                                                                                                                                 \
+    bool __stl_fn_hash(key_type, value_type, hash_map, all_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value)                                                                   \
+    {                                                                                                                                                                                                 \
+        for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
+        {                                                                                                                                                                                             \
+            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
+            {                                                                                                                                                                                         \
+                if (hash_ptr->buffer[i].arr[j].value != value)                                                                                                                                        \
+                    return false;                                                                                                                                                                     \
+            }                                                                                                                                                                                         \
+        }                                                                                                                                                                                             \
+        return true;                                                                                                                                                                                  \
+    }                                                                                                                                                                                                 \
+    bool __stl_fn_hash(key_type, value_type, hash_map, all_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b))                      \
+    {                                                                                                                                                                                                 \
+        for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
+        {                                                                                                                                                                                             \
+            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
+            {                                                                                                                                                                                         \
+                if (!cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                    \
+                    return false;                                                                                                                                                                     \
+            }                                                                                                                                                                                         \
+        }                                                                                                                                                                                             \
+        return true;                                                                                                                                                                                  \
+    }                                                                                                                                                                                                 \
+    bool __stl_fn_hash(key_type, value_type, hash_map, any_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value)                                                                   \
+    {                                                                                                                                                                                                 \
+        for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
+        {                                                                                                                                                                                             \
+            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
+            {                                                                                                                                                                                         \
+                if (hash_ptr->buffer[i].arr[j].value == value)                                                                                                                                        \
+                    return true;                                                                                                                                                                      \
+            }                                                                                                                                                                                         \
+        }                                                                                                                                                                                             \
+        return false;                                                                                                                                                                                 \
+    }                                                                                                                                                                                                 \
+    bool __stl_fn_hash(key_type, value_type, hash_map, any_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b))                      \
+    {                                                                                                                                                                                                 \
+        for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
+        {                                                                                                                                                                                             \
+            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
+            {                                                                                                                                                                                         \
+                if (cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                     \
+                    return true;                                                                                                                                                                      \
+            }                                                                                                                                                                                         \
+        }                                                                                                                                                                                             \
+        return false;                                                                                                                                                                                 \
     }
 
 #endif
