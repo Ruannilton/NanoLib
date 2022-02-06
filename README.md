@@ -83,7 +83,7 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 | set      |   x    |     -    |      x       |   x    |       |       | 
 | get      |   x    |     x    |      x       |   x    |       |       | 
 | first    |   x    |     -    |      x       |   x    |       |       | 
-| last     |        |     -    |              |   x    |       |       | 
+| last     |   T    |     -    |              |   x    |       |       | 
 | remove   |   x    |     x    |      x       |   x    |       |       | 
 | lenght   |   x    |     x    |      x       |   x    |       |       | 
 | copy     |   x    |     -    |      x       |   x    |       |       | 
@@ -97,11 +97,11 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 | count_cmp|   x    |     T    |      x       |   x    |       |       | 
 | all      |   x    |     T    |      x       |   x    |       |       | 
 | all_cmp  |   x    |     T    |      x       |   x    |       |       | 
-| any      |        |     T    |              |        |       |       | 
-| any_cmp  |        |     T    |              |        |       |       | 
+| any      |   T    |     T    |              |   T    |       |       | 
+| any_cmp  |   T    |     T    |              |   T    |       |       | 
 | join     |   x    |          |      x       |   x    |       |       | 
 | reverse  |   x    |     -    |      x       |   x    |       |       | 
 | clear    |   -    |     x    |      -       |        |       |       | 
 | free     |   x    |     x    |      x       |   x    |       |       | 
-| map      |        |          |              |        |       |       | 
-| filter   |        |          |              |        |       |       | 
+| map      |   T    |          |              |   T    |       |       | 
+| filter   |   T    |          |              |   T    |       |       | 

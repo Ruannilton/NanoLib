@@ -29,10 +29,14 @@
 #define vector_count_cmp(type) __stl_fn(type, vector, count_cmp)
 #define vector_all(type) __stl_fn(type, vector, all)
 #define vector_all_cmp(type) __stl_fn(type, vector, all_cmp)
+#define vector_any(type) __stl_fn(type, vector, any)
+#define vector_any_cmp(type) __stl_fn(type, vector, any_cmp)
 #define vector_join(type) __stl_fn(type, vector, join)
 #define vector_reverse(type) __stl_fn(type, vector, reverse)
 #define vector_free(type) __stl_fn(type, vector, free)
 #define vector_lenght(type) __stl_fn(type, vector, lenght)
+#define vector_map(type) __stl_fn(type, vector, map)
+#define vector_filter(type) __stl_fn(type, vector, filter)
 #endif
 
 #define stl_declare_vector_alias(type) \
@@ -72,10 +76,14 @@
     size_t __stl_fn(type, vector, count_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));        \
     bool __stl_fn(type, vector, all)(__stl_t(type, vector) * arr, type value);                                             \
     bool __stl_fn(type, vector, all_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));            \
+    bool __stl_fn(type, vector, any)(__stl_t(type, vector) * arr, type value);                                             \
+    bool __stl_fn(type, vector, any_cmp)(__stl_t(type, vector) * arr, type value, bool (*cmp)(type a, type b));            \
     void __stl_fn(type, vector, join)(__stl_t(type, vector) * a, __stl_t(type, vector) * b);                               \
     void __stl_fn(type, vector, reverse)(__stl_t(type, vector) * arr);                                                     \
     void __stl_fn(type, vector, free)(__stl_t(type, vector) * arr);                                                        \
-    size_t __stl_fn(type, vector, lenght)(__stl_t(type, vector) * arr);
+    size_t __stl_fn(type, vector, lenght)(__stl_t(type, vector) * arr);                                                    \
+    void __stl_fn(type, vector, map)(__stl_t(type, vector) * vec, type * *out, type(*map_fn)(type value, size_t index));   \
+    void __stl_fn(type, vector, filter)(__stl_t(type, vector) * vec, type * *out, bool (*filter_fn)(type value, size_t index, type * filtered), size_t *out_len);
 
 #define vector_foreach(type, p_vec, code, ...) macro_override(dummy, ##__VA_ARGS__, _4, _3, ___i___vector_foreach_2, ___i___vector_foreach_1, ___i___vector_foreach_0)(type, p_vec, code, ##__VA_ARGS__)
 
