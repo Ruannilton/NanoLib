@@ -137,7 +137,7 @@
     size_t __stl_fn(type, array, lenght)(__stl_t(type, array) * arr)                                                                                           \
     {                                                                                                                                                          \
         assert(arr != NULL);                                                                                                                                   \
-        return arr->count;                                                                                                                                     \
+        return arr->lenght;                                                                                                                                    \
     }                                                                                                                                                          \
     void __stl_fn(type, array, map)(__stl_t(type, array) * arr, type * *out, type(*map_fn)(type value, size_t index))                                          \
     {                                                                                                                                                          \

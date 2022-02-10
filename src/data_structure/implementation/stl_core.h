@@ -340,20 +340,18 @@
         assert(filter_fn != NULL);                                                                                                                                     \
         assert(out_len != NULL);                                                                                                                                       \
         assert(lenght > 0);                                                                                                                                            \
-        *out_len = *out_len != 0 ? *out_len : lenght;                                                                                                                  \
-        *out = cstl_malloc((*out_len) * sizeof(type));                                                                                                                 \
+        *out = cstl_malloc((*out_len == 0 ? lenght / 2 : lenght) * sizeof(type));                                                                                      \
         size_t count = 0;                                                                                                                                              \
         type filtered;                                                                                                                                                 \
         for (size_t i = 0; i < lenght; i++)                                                                                                                            \
         {                                                                                                                                                              \
             if (filter_fn(buffer[i], i, &filtered))                                                                                                                    \
             {                                                                                                                                                          \
-                if (count + 1 > *out_len)                                                                                                                              \
+                if (count + 1 > lenght)                                                                                                                                \
                 {                                                                                                                                                      \
-                    *out_len *= 2;                                                                                                                                     \
-                    *out = cstl_realloc(*out, *out_len);                                                                                                               \
+                    *out = cstl_realloc(*out, sizeof(type) * lenght);                                                                                                  \
                 }                                                                                                                                                      \
-                *out[count++] = filtered;                                                                                                                              \
+                (*out)[count++] = filtered;                                                                                                                            \
             }                                                                                                                                                          \
         }                                                                                                                                                              \
         *out = cstl_realloc(*out, sizeof(type) * count);                                                                                                               \
