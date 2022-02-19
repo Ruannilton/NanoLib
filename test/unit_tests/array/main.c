@@ -53,9 +53,9 @@ TEST_FUNC(test_insert)
     int v2 = munit_rand_uint32();
     int v3 = munit_rand_uint32();
 
-    stl_array_int_insert(my_arr, v1, 0);
-    stl_array_int_insert(my_arr, v2, 0);
-    stl_array_int_insert(my_arr, v3, 0);
+    array_insert(int)(my_arr, v1, 0);
+    array_insert(int)(my_arr, v2, 0);
+    array_insert(int)(my_arr, v3, 0);
 
     munit_assert(my_arr->buffer[0] == v3);
     munit_assert(my_arr->buffer[1] == v2);
@@ -71,9 +71,9 @@ TEST_FUNC(test_set)
     int v2 = munit_rand_uint32();
     int v3 = munit_rand_uint32();
 
-    stl_array_int_set(my_arr, v1, 0);
-    stl_array_int_set(my_arr, v2, 1);
-    stl_array_int_set(my_arr, v3, 2);
+    array_set(int)(my_arr, v1, 0);
+    array_set(int)(my_arr, v2, 1);
+    array_set(int)(my_arr, v3, 2);
 
     munit_assert(my_arr->buffer[3] == 0);
     munit_assert(my_arr->buffer[2] == v3);
@@ -90,11 +90,11 @@ TEST_FUNC(test_remove)
     int v2 = munit_rand_uint32();
     int v3 = munit_rand_uint32();
 
-    stl_array_int_set(my_arr, v1, 0);
-    stl_array_int_set(my_arr, v2, 1);
-    stl_array_int_set(my_arr, v3, 2);
+    array_set(int)(my_arr, v1, 0);
+    array_set(int)(my_arr, v2, 1);
+    array_set(int)(my_arr, v3, 2);
 
-    stl_array_int_remove(my_arr, 1);
+    array_remove(int)(my_arr, 1);
 
     munit_assert(my_arr->buffer[2] == 0);
     munit_assert(my_arr->buffer[1] == v3);
@@ -110,13 +110,13 @@ TEST_FUNC(test_get)
     int v2 = munit_rand_uint32();
     int v3 = munit_rand_uint32();
 
-    stl_array_int_set(my_arr, v1, 0);
-    stl_array_int_set(my_arr, v2, 1);
-    stl_array_int_set(my_arr, v3, 2);
+    array_set(int)(my_arr, v1, 0);
+    array_set(int)(my_arr, v2, 1);
+    array_set(int)(my_arr, v3, 2);
 
-    int g1 = stl_array_int_get(my_arr, 0);
-    int g2 = stl_array_int_get(my_arr, 1);
-    int g3 = stl_array_int_get(my_arr, 2);
+    int g1 = array_get(int)(my_arr, 0);
+    int g2 = array_get(int)(my_arr, 1);
+    int g3 = array_get(int)(my_arr, 2);
 
     munit_assert(g1 == v1);
     munit_assert(g2 == v2);
@@ -134,15 +134,15 @@ TEST_FUNC(test_first)
 
     int arr[3] = {v1, v2, v3};
 
-    stl_array_int_set(my_arr, v1, 0);
-    stl_array_int_set(my_arr, v2, 1);
-    stl_array_int_set(my_arr, v3, 2);
+    array_set(int)(my_arr, v1, 0);
+    array_set(int)(my_arr, v2, 1);
+    array_set(int)(my_arr, v3, 2);
 
     for (size_t i = 0; i < 3; i++)
     {
-        int g = stl_array_int_first(my_arr);
+        int g = array_first(int)(my_arr);
         munit_assert(g == arr[i]);
-        stl_array_int_remove(my_arr, 0);
+        array_remove(int)(my_arr, 0);
     }
 
     return MUNIT_OK;
@@ -152,8 +152,8 @@ TEST_FUNC(test_last)
 {
     array(int) *my_arr = user_data;
     int v1 = munit_rand_uint32();
-    stl_array_int_set(my_arr, v1, my_arr->lenght - 1);
-    int g1 = stl_array_int_last(my_arr);
+    array_set(int)(my_arr, v1, my_arr->lenght - 1);
+    int g1 = array_last(int)(my_arr);
     munit_assert(g1 == v1);
     return MUNIT_OK;
 }
@@ -170,14 +170,14 @@ TEST_FUNC(test_copy)
 
         for (size_t i = 0; i < my_arr->lenght; i++)
         {
-            stl_array_int_set(my_arr, munit_rand_uint32(), i);
+            array_set(int)(my_arr, munit_rand_uint32(), i);
         }
 
-        stl_array_int_copy(my_arr, &buff, start, start + len);
+        array_copy(int)(my_arr, &buff, start, start + len);
 
         for (size_t i = start, c = 0; i < start + len; i++, c++)
         {
-            munit_assert(stl_array_int_get(my_arr, i) == buff[c]);
+            munit_assert(array_get(int)(my_arr, i) == buff[c]);
         }
 
         free(buff);
@@ -192,15 +192,15 @@ TEST_FUNC(test_clone)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, munit_rand_uint32(), i);
+        array_set(int)(my_arr, munit_rand_uint32(), i);
     }
 
     int *buff = malloc(sizeof(int) * my_arr->lenght);
-    stl_array_int_clone(my_arr, &buff);
+    array_clone(int)(my_arr, &buff);
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        munit_assert(stl_array_int_get(my_arr, i) == buff[i]);
+        munit_assert(array_get(int)(my_arr, i) == buff[i]);
     }
 
     return MUNIT_OK;
@@ -211,19 +211,19 @@ TEST_FUNC(test_equal)
     array(int) other_arr = {.buffer = 0, .lenght = 0};
     array(int) *my_arr = user_data;
 
-    stl_array_int_create(&other_arr, my_arr->lenght);
+    array_create(int)(&other_arr, my_arr->lenght);
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
         uint32_t v = munit_rand_uint32();
-        stl_array_int_set(my_arr, v, i);
-        stl_array_int_set(&other_arr, v, i);
+        array_set(int)(my_arr, v, i);
+        array_set(int)(&other_arr, v, i);
     }
 
-    bool eq = stl_array_int_equal(&other_arr, my_arr);
+    bool eq = array_equal(int)(&other_arr, my_arr);
     munit_assert(eq);
 
-    stl_array_int_free(&other_arr);
+    array_free(int)(&other_arr);
     return MUNIT_OK;
 }
 
@@ -233,11 +233,11 @@ TEST_FUNC(test_fill)
 
     uint32_t number = munit_rand_uint32();
 
-    stl_array_int_fill(my_arr, number);
+    array_fill(int)(my_arr, number);
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        munit_assert(stl_array_int_get(my_arr, i) == number);
+        munit_assert(array_get(int)(my_arr, i) == number);
     }
 
     return MUNIT_OK;
@@ -248,12 +248,12 @@ TEST_FUNC(test_find)
     array(int) *my_arr = user_data;
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i, i);
-        int pos = stl_array_int_find(my_arr, i);
+        array_set(int)(my_arr, i, i);
+        int pos = array_find(int)(my_arr, i);
         munit_assert(pos == i);
     }
 
-    int pos = stl_array_int_find(my_arr, -342);
+    int pos = array_find(int)(my_arr, -342);
     munit_assert(pos == -1);
 
     return MUNIT_OK;
@@ -264,12 +264,12 @@ TEST_FUNC(test_find_cmp)
     array(int) *my_arr = user_data;
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i, i);
-        int pos = stl_array_int_find_cmp(my_arr, i, int_cmp);
+        array_set(int)(my_arr, i, i);
+        int pos = array_find_cmp(int)(my_arr, i, int_cmp);
         munit_assert(pos == i);
     }
 
-    int pos = stl_array_int_find_cmp(my_arr, -342, int_cmp);
+    int pos = array_find_cmp(int)(my_arr, -342, int_cmp);
     munit_assert(pos == -1);
 
     return MUNIT_OK;
@@ -281,16 +281,16 @@ TEST_FUNC(test_resize)
     size_t i = 0;
     for (; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i, i);
+        array_set(int)(my_arr, i, i);
     }
-    stl_array_int_resize(my_arr, my_arr->lenght * 2);
+    array_resize(int)(my_arr, my_arr->lenght * 2);
     for (; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i, i);
+        array_set(int)(my_arr, i, i);
     }
     for (i = 0; i < my_arr->lenght; i++)
     {
-        munit_assert(stl_array_int_get(my_arr, i) == i);
+        munit_assert(array_get(int)(my_arr, i) == i);
     }
 
     return MUNIT_OK;
@@ -304,10 +304,10 @@ TEST_FUNC(test_count)
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
         c += i % 2;
-        stl_array_int_set(my_arr, i % 2, i);
+        array_set(int)(my_arr, i % 2, i);
     }
-    munit_assert(c == stl_array_int_count(my_arr, 1));
-    munit_assert(0 == stl_array_int_count(my_arr, -1));
+    munit_assert(c == array_count(int)(my_arr, 1));
+    munit_assert(0 == array_count(int)(my_arr, -1));
     return MUNIT_OK;
 }
 
@@ -319,10 +319,10 @@ TEST_FUNC(test_count_cmp)
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
         c += i % 2;
-        stl_array_int_set(my_arr, i % 2, i);
+        array_set(int)(my_arr, i % 2, i);
     }
-    munit_assert(c == stl_array_int_count_cmp(my_arr, 1, int_cmp));
-    munit_assert(0 == stl_array_int_count_cmp(my_arr, -1, int_cmp));
+    munit_assert(c == array_count_cmp(int)(my_arr, 1, int_cmp));
+    munit_assert(0 == array_count_cmp(int)(my_arr, -1, int_cmp));
     return MUNIT_OK;
 }
 
@@ -332,11 +332,11 @@ TEST_FUNC(test_all)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, 1, i);
+        array_set(int)(my_arr, 1, i);
     }
 
-    munit_assert(stl_array_int_all(my_arr, 1));
-    munit_assert(stl_array_int_all(my_arr, 0) == false);
+    munit_assert(array_all(int)(my_arr, 1));
+    munit_assert(array_all(int)(my_arr, 0) == false);
     return MUNIT_OK;
 }
 
@@ -346,12 +346,12 @@ TEST_FUNC(test_all_cmp)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i % 2, i);
+        array_set(int)(my_arr, i % 2, i);
     }
 
-    munit_assert(stl_array_int_all_cmp(my_arr, 0, less_than_two));
-    munit_assert(stl_array_int_all_cmp(my_arr, 0, is_even) == false);
-    munit_assert(stl_array_int_all_cmp(my_arr, 2, int_cmp) == false);
+    munit_assert(array_all_cmp(int)(my_arr, 0, less_than_two));
+    munit_assert(array_all_cmp(int)(my_arr, 0, is_even) == false);
+    munit_assert(array_all_cmp(int)(my_arr, 2, int_cmp) == false);
     return MUNIT_OK;
 }
 
@@ -361,12 +361,12 @@ TEST_FUNC(test_any)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i % 2, i);
+        array_set(int)(my_arr, i % 2, i);
     }
 
-    munit_assert(stl_array_int_any(my_arr, 0));
-    munit_assert(stl_array_int_any(my_arr, 1));
-    munit_assert(stl_array_int_any(my_arr, 2) == false);
+    munit_assert(array_any(int)(my_arr, 0));
+    munit_assert(array_any(int)(my_arr, 1));
+    munit_assert(array_any(int)(my_arr, 2) == false);
     return MUNIT_OK;
 }
 
@@ -376,12 +376,12 @@ TEST_FUNC(test_any_cmp)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i % 2, i);
+        array_set(int)(my_arr, i % 2, i);
     }
 
-    munit_assert(stl_array_int_any_cmp(my_arr, 0, less_than_two));
-    munit_assert(stl_array_int_any_cmp(my_arr, 0, is_even));
-    munit_assert(stl_array_int_any_cmp(my_arr, 2, int_cmp) == false);
+    munit_assert(array_any_cmp(int)(my_arr, 0, less_than_two));
+    munit_assert(array_any_cmp(int)(my_arr, 0, is_even));
+    munit_assert(array_any_cmp(int)(my_arr, 2, int_cmp) == false);
     return MUNIT_OK;
 }
 
@@ -390,24 +390,24 @@ TEST_FUNC(test_join)
     array(int) other_arr = {.buffer = 0, .lenght = 0};
     array(int) *my_arr = user_data;
 
-    stl_array_int_create(&other_arr, my_arr->lenght);
+    array_create(int)(&other_arr, my_arr->lenght);
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
         uint32_t v = munit_rand_uint32();
-        stl_array_int_set(my_arr, v, i);
-        stl_array_int_set(&other_arr, v, i);
+        array_set(int)(my_arr, v, i);
+        array_set(int)(&other_arr, v, i);
     }
 
     size_t i_len = my_arr->lenght;
-    stl_array_int_join(my_arr, &other_arr);
+    array_join(int)(my_arr, &other_arr);
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        munit_assert(stl_array_int_get(my_arr, i) == stl_array_int_get(my_arr, i + i_len));
+        munit_assert(array_get(int)(my_arr, i) == array_get(int)(my_arr, i + i_len));
     }
 
-    stl_array_int_free(&other_arr);
+    array_free(int)(&other_arr);
     return MUNIT_OK;
 }
 
@@ -417,14 +417,14 @@ TEST_FUNC(test_reverse)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i, i);
+        array_set(int)(my_arr, i, i);
     }
 
-    stl_array_int_reverse(my_arr);
+    array_reverse(int)(my_arr);
 
     for (size_t i = 0, v = my_arr->lenght - 1; i < my_arr->lenght; i++, v--)
     {
-        munit_assert(stl_array_int_get(my_arr, i) == v);
+        munit_assert(array_get(int)(my_arr, i) == v);
     }
 
     return MUNIT_OK;
@@ -436,14 +436,14 @@ TEST_FUNC(test_lenght)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i, i);
+        array_set(int)(my_arr, i, i);
     }
 
     for (size_t i = 0; i < 5; i++)
     {
         size_t n_size = munit_rand_int_range(5, 15);
-        stl_array_int_resize(my_arr, n_size);
-        munit_assert(stl_array_int_lenght(my_arr) == n_size);
+        array_resize(int)(my_arr, n_size);
+        munit_assert(array_lenght(int)(my_arr) == n_size);
     }
 
     return MUNIT_OK;
@@ -454,11 +454,16 @@ TEST_FUNC(test_map)
     array(int) *my_arr = user_data;
     int *out;
 
-    stl_array_int_map(my_arr, &out, mul_by_2);
+    for (size_t i = 0; i < my_arr->lenght; i++)
+    {
+        array_set(int)(my_arr, i, i);
+    }
+
+    array_map(int)(my_arr, &out, mul_by_2);
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        munit_assert(stl_array_int_get(my_arr, i) * 2 == out[i]);
+        munit_assert(array_get(int)(my_arr, i) * 2 == out[i]);
     }
 
     free(out);
@@ -473,10 +478,10 @@ TEST_FUNC(test_filter)
 
     for (size_t i = 0; i < my_arr->lenght; i++)
     {
-        stl_array_int_set(my_arr, i, i);
+        array_set(int)(my_arr, i, i);
     }
 
-    stl_array_int_filter(my_arr, &out, filter_even, &vec_len);
+    array_filter(int)(my_arr, &out, filter_even, &vec_len);
     munit_assert(vec_len == 5);
     for (size_t i = 0; i < vec_len; i++)
     {
@@ -490,7 +495,7 @@ TEST_FUNC(test_filter)
 static void *setup(const MunitParameter params[], void *user_data)
 {
     array(int) *my_arr = (array(int) *)malloc(sizeof(array(int)));
-    stl_array_int_create(my_arr, 10);
+    array_create(int)(my_arr, 10);
 
     for (int i = 0; i < my_arr->lenght; i++)
         my_arr->buffer[i] = 0;

@@ -23,6 +23,11 @@
         }                                                                             \
     }
 
+#define __internal_vec_dec(vec, dec) \
+    {                                \
+        vec->count -= dec;           \
+    }
+
 #define stl_implement_vector(type)                                                                                                                               \
     void __stl_fn(type, vector, create)(__stl_t(type, vector) * vec, size_t lenght)                                                                              \
     {                                                                                                                                                            \
@@ -56,7 +61,7 @@
         assert(vec != NULL);                                                                                                                                     \
         assert(index < vec->lenght);                                                                                                                             \
         __stl_fn(type, __base_name, remove)(vec->buffer, index, vec->count);                                                                                     \
-        vec->count--;                                                                                                                                            \
+        __internal_vec_dec(vec, 1);                                                                                                                              \
     }                                                                                                                                                            \
     type __stl_fn(type, vector, get)(__stl_t(type, vector) * vec, size_t index)                                                                                  \
     {                                                                                                                                                            \
@@ -72,7 +77,7 @@
     type __stl_fn(type, vector, last)(__stl_t(type, vector) * vec)                                                                                               \
     {                                                                                                                                                            \
         assert(vec != NULL);                                                                                                                                     \
-        return __stl_fn(type, __base_name, last)(vec->buffer, vec->count - 1);                                                                                   \
+        return __stl_fn(type, __base_name, last)(vec->buffer, vec->count);                                                                                       \
     }                                                                                                                                                            \
     void __stl_fn(type, vector, push_front)(__stl_t(type, vector) * vec, type value)                                                                             \
     {                                                                                                                                                            \
@@ -90,13 +95,13 @@
     {                                                                                                                                                            \
         assert(vec != NULL);                                                                                                                                     \
         __stl_fn(type, __base_name, pop_front)(vec->buffer, vec->count);                                                                                         \
-        vec->count--;                                                                                                                                            \
+        __internal_vec_dec(vec, 1);                                                                                                                              \
     }                                                                                                                                                            \
     void __stl_fn(type, vector, pop_back)(__stl_t(type, vector) * vec)                                                                                           \
     {                                                                                                                                                            \
         assert(vec != NULL);                                                                                                                                     \
         __stl_fn(type, __base_name, remove)(vec->buffer, vec->count - 1, vec->count);                                                                            \
-        vec->count--;                                                                                                                                            \
+        __internal_vec_dec(vec, 1);                                                                                                                              \
     }                                                                                                                                                            \
     void __stl_fn(type, vector, copy)(__stl_t(type, vector) * vec, __stl_t(type, vector) * out, size_t start, size_t end)                                        \
     {                                                                                                                                                            \
@@ -194,10 +199,10 @@
         vec->lenght = 0;                                                                                                                                         \
         vec->buffer = 0;                                                                                                                                         \
     }                                                                                                                                                            \
-    size_t __stl_fn(type, vector, lenght)(__stl_t(type, vector) * arr)                                                                                           \
+    size_t __stl_fn(type, vector, lenght)(__stl_t(type, vector) * vec)                                                                                           \
     {                                                                                                                                                            \
         assert(vec != NULL);                                                                                                                                     \
-        return arr->count;                                                                                                                                       \
+        return vec->lenght;                                                                                                                                      \
     }                                                                                                                                                            \
     void __stl_fn(type, vector, map)(__stl_t(type, vector) * vec, type * *out, type(*map_fn)(type value, size_t index))                                          \
     {                                                                                                                                                            \
