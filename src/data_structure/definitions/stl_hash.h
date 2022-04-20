@@ -28,6 +28,12 @@
 #define hash_map_lenght(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, lenght)
 #define hash_map_clone(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, clone)
 #define hash_map_equal(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, equal)
+#define hash_map_count_values(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, count_values)
+#define hash_map_count_values_cmp(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, count_values_cmp)
+#define hash_map_all_values(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, all_values)
+#define hash_map_all_values_cmp(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, all_values_cmp)
+#define hash_map_any_values(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, any_values)
+#define hash_map_any_values_cmp(key_type, value_type) __stl_fn_hash(key_type, value_type, hash_map, any_values_cmp)
 #endif
 
 #define stl_declare_hash_table_for(...) call_macro_x_for_each(___i_stl_declare_ht_, __VA_ARGS__)
@@ -75,7 +81,7 @@
     void __stl_fn_hash(key_type, value_type, hash_map, free)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                           \
     void __stl_fn_hash(key_type, value_type, hash_map, clear)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                          \
     void __stl_fn_hash(key_type, value_type, hash_map, clone)(__stl_t_hash(key_type, value_type) * source, __stl_t_hash(key_type, value_type) * *dest);                                                \
-    bool __stl_fn_hash(key_type, value_type, hash_map, equal)(__stl_t_hash(key_type, value_type) * a,key_type, value_type) * b);                                                                       \
+    bool __stl_fn_hash(key_type, value_type, hash_map, equal)(__stl_t_hash(key_type, value_type) * a, __stl_t_hash(key_type, value_type) * b);                                                         \
     size_t __stl_fn_hash(key_type, value_type, hash_map, lenght)(__stl_t_hash(key_type, value_type) * hash_ptr);                                                                                       \
     size_t __stl_fn_hash(key_type, value_type, hash_map, count_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value);                                                               \
     size_t __stl_fn_hash(key_type, value_type, hash_map, count_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b));                  \

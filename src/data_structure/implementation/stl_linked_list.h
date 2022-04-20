@@ -18,7 +18,7 @@
     void __stl_fn(type, linked_list, insert)(__stl_t(type, linked_list) * arr, type value, size_t index)                                  \
     {                                                                                                                                     \
         assert(arr != NULL);                                                                                                              \
-        assert(arr->count > index);                                                                                                       \
+        assert((arr->count > 0 && arr->count > index) || arr->count == 0);                                                                \
         if (index == 0)                                                                                                                   \
         {                                                                                                                                 \
             __stl_t(type, linked_list_node_t) *new_node = cstl_malloc(sizeof(__stl_t(type, linked_list_node_t)));                         \
@@ -353,7 +353,6 @@
     void __stl_fn(type, linked_list, free)(__stl_t(type, linked_list) * arr, void (*custom_free)(type a))                                 \
     {                                                                                                                                     \
         assert(arr != NULL);                                                                                                              \
-        assert(arr->first != NULL);                                                                                                       \
         __stl_t(type, linked_list_node_t) *current = arr->first;                                                                          \
         if (custom_free)                                                                                                                  \
         {                                                                                                                                 \

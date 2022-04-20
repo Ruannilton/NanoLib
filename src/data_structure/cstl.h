@@ -4,7 +4,7 @@
 #ifndef CSTL_NO_STD
 
 #include <stdlib.h>
-#include <string.h>
+#include <memory.h>
 
 #define cstl_malloc malloc
 

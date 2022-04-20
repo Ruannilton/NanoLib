@@ -184,6 +184,7 @@
         {                                                                                                                                                                                             \
             (*dest)->buffer[i].count = source->buffer[i].count;                                                                                                                                       \
             (*dest)->buffer[i].len = source->buffer[i].len;                                                                                                                                           \
+            (*dest)->buffer[i].arr = (__stl_bucket(key_type, value_type) *)cstl_malloc(sizeof(__stl_bucket(key_type, value_type)) * source->buffer[i].len);                                           \
             cstl_memcpy((*dest)->buffer[i].arr, source->buffer[i].arr, sizeof(__stl_bucket(key_type, value_type)) * source->buffer[i].len);                                                           \
         }                                                                                                                                                                                             \
     }                                                                                                                                                                                                 \
