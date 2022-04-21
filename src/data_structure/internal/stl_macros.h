@@ -17,8 +17,8 @@
 #defined memsize 0
 #endif
 
-#define check_buffer_overflow_acess(pointer, size) assert((size) < memsize((pointer)) && "Try to acess index out of bounds")
-#define check_buffer_overflow_size(pointer, size) assert((size) <= memsize((pointer)) && "Buffer have less size than requested")
+#define check_buffer_overflow_acess(pointer, size) assert((size) < memsize((pointer)) && "Try to acess index out of bounds")     // cppcheck-suppress
+#define check_buffer_overflow_size(pointer, size) assert((size) <= memsize((pointer)) && "Buffer have less size than requested") // cppcheck-suppress
 
 #ifdef NDEBUG
 #defined memsize 0

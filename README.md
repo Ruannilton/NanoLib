@@ -74,6 +74,7 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 <p> x | implementado </p>
 <p> - | não será implementado </p>
 <p> T | em teste </p>
+<p> E | erro ao testar </p>
 
 
 |          | Array  | HashMap  | Linked List  | Vector | Stack | Queue |
@@ -83,25 +84,25 @@ A macro stl_implement_core também deve ser chamada uma única vez para cada tip
 | set      |   x    |     -    |      x       |   x    |       |       | 
 | get      |   x    |     x    |      x       |   x    |       |       | 
 | first    |   x    |     -    |      x       |   x    |       |       | 
-| last     |   x    |     -    |              |   x    |       |       | 
+| last     |   x    |     -    |      x       |   x    |       |       | 
 | remove   |   x    |     x    |      x       |   x    |       |       | 
 | lenght   |   x    |     x    |      x       |   x    |       |       | 
 | copy     |   x    |     -    |      x       |   x    |       |       | 
-| clone    |   x    |     T    |      x       |   x    |       |       | 
-| equal    |   x    |     T    |      x       |   x    |       |       | 
+| clone    |   x    |     x    |      x       |   x    |       |       | 
+| equal    |   x    |     x    |      x       |   x    |       |       | 
 | fill     |   x    |     -    |      x       |   x    |       |       | 
 | find     |   x    |     -    |      x       |   x    |       |       | 
 | find_cmp |   x    |     -    |      x       |   x    |       |       | 
 | resize   |   x    |     -    |      -       |   x    |       |       | 
-| count    |   x    |     T    |      x       |   x    |       |       | 
-| count_cmp|   x    |     T    |      x       |   x    |       |       | 
-| all      |   x    |     T    |      x       |   x    |       |       | 
-| all_cmp  |   x    |     T    |      x       |   x    |       |       | 
-| any      |   x    |     T    |              |   T    |       |       | 
-| any_cmp  |   x    |     T    |              |   T    |       |       | 
+| count    |   x    |     x    |      x       |   x    |       |       | 
+| count_cmp|   x    |     E    |      x       |   x    |       |       | 
+| all      |   x    |     E    |      x       |   x    |       |       | 
+| all_cmp  |   x    |     E    |      x       |   x    |       |       | 
+| any      |   x    |     E    |      x       |   x    |       |       | 
+| any_cmp  |   x    |     E    |      x       |   x    |       |       | 
 | join     |   x    |          |      x       |   x    |       |       | 
 | reverse  |   x    |     -    |      x       |   x    |       |       | 
 | clear    |   -    |     x    |      -       |        |       |       | 
 | free     |   x    |     x    |      x       |   x    |       |       | 
-| map      |   x    |          |              |   T    |       |       | 
-| filter   |   x    |          |              |   T    |       |       | 
+| map      |   x    |          |      x       |   x    |       |       | 
+| filter   |   x    |          |      x       |   x    |       |       | 
