@@ -36,14 +36,15 @@ int mul_by_2(int value, size_t index)
     return value * 2;
 }
 
-bool filter_even(int value, size_t index, int *filtered)
+int filter_even(int value, size_t index, int8_t *filtered)
 {
     if (value % 2 == 1)
     {
-        *filtered = value;
-        return true;
+        *filtered = 1;
+        return value;
     }
-    return false;
+    *filtered = 0;
+    return 0;
 }
 
 TEST_FUNC(test_insert)
@@ -282,23 +283,6 @@ TEST_FUNC(test_reverse)
     return MUNIT_OK;
 }
 
-TEST_FUNC(test_all)
-{
-    linked_list(int) *my_list = (linked_list(int) *)user_data;
-    linked_list_add(int)(my_list, 1);
-    linked_list_add(int)(my_list, 1);
-    linked_list_add(int)(my_list, 1);
-    linked_list_add(int)(my_list, 1);
-
-    bool eq1 = linked_list_all(int)(my_list, 1);
-    bool eq2 = linked_list_all(int)(my_list, 2);
-
-    munit_assert(eq1);
-    munit_assert(!eq2);
-
-    return MUNIT_OK;
-}
-
 TEST_FUNC(test_fill)
 {
     linked_list(int) *my_list = (linked_list(int) *)user_data;
@@ -333,6 +317,23 @@ TEST_FUNC(test_lenght)
     return MUNIT_OK;
 }
 
+TEST_FUNC(test_all)
+{
+    linked_list(int) *my_list = (linked_list(int) *)user_data;
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+
+    bool eq1 = linked_list_all(int)(my_list, 1);
+    bool eq2 = linked_list_all(int)(my_list, 2);
+
+    munit_assert(eq1);
+    munit_assert(!eq2);
+
+    return MUNIT_OK;
+}
+
 TEST_FUNC(test_all_cmp)
 {
     linked_list(int) *my_list = (linked_list(int) *)user_data;
@@ -346,6 +347,85 @@ TEST_FUNC(test_all_cmp)
 
     munit_assert(eq1);
     munit_assert(!eq2);
+
+    return MUNIT_OK;
+}
+
+TEST_FUNC(test_any)
+{
+    linked_list(int) *my_list = (linked_list(int) *)user_data;
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 2);
+
+    bool eq1 = linked_list_any(int)(my_list, 2);
+    bool eq2 = linked_list_any(int)(my_list, 3);
+
+    munit_assert(eq1);
+    munit_assert(!eq2);
+
+    return MUNIT_OK;
+}
+
+TEST_FUNC(test_any_cmp)
+{
+    linked_list(int) *my_list = (linked_list(int) *)user_data;
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 2);
+
+    bool eq1 = linked_list_any_cmp(int)(my_list, 2, int_cmp);
+    bool eq2 = linked_list_any_cmp(int)(my_list, 3, int_cmp);
+
+    munit_assert(eq1);
+    munit_assert(!eq2);
+
+    return MUNIT_OK;
+}
+
+TEST_FUNC(test_map)
+{
+    linked_list(int) *my_list = (linked_list(int) *)user_data;
+    linked_list(int) out, *out_pointer = &out;
+    linked_list_create(int)(out_pointer);
+
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 1);
+
+    linked_list_map(int)(my_list, &out_pointer, mul_by_2);
+
+    bool eq1 = linked_list_all_cmp(int)(out_pointer, 2, int_cmp);
+    bool eq2 = linked_list_any_cmp(int)(out_pointer, 1, int_cmp);
+
+    linked_list_free(int)(out_pointer, 0);
+
+    munit_assert(eq1);
+    munit_assert(!eq2);
+
+    return MUNIT_OK;
+}
+
+TEST_FUNC(test_filter)
+{
+    linked_list(int) *my_list = (linked_list(int) *)user_data;
+    linked_list(int) out, *out_pointer = &out;
+    linked_list_create(int)(out_pointer);
+
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 2);
+    linked_list_add(int)(my_list, 3);
+    linked_list_add(int)(my_list, 4);
+
+    linked_list_filter(int)(my_list, &out_pointer, filter_even);
+
+    bool eq1 = linked_list_all_cmp(int)(out_pointer, 2, is_even);
+
+    linked_list_free(int)(out_pointer, 0);
+    munit_assert(eq1);
 
     return MUNIT_OK;
 }
@@ -377,6 +457,20 @@ TEST_FUNC(test_find_cmp)
     return MUNIT_OK;
 }
 
+TEST_FUNC(test_last)
+{
+    linked_list(int) *my_list = (linked_list(int) *)user_data;
+    linked_list_add(int)(my_list, 1);
+    linked_list_add(int)(my_list, 2);
+    linked_list_add(int)(my_list, 3);
+    linked_list_add(int)(my_list, 4);
+
+    int v = linked_list_last(int)(my_list);
+
+    assert(v == 4);
+    return MUNIT_OK;
+}
+
 static void *setup(const MunitParameter params[], void *user_data)
 {
     linked_list(int) *my_list = (linked_list(int) *)malloc(sizeof(linked_list(int)));
@@ -400,7 +494,7 @@ int main(int argc, char *const argv[])
         TEST("/remove", test_remove),
         TEST("/get", test_get),
         TEST("/first", test_first),
-        // TEST("/last", test_last),
+        TEST("/last", test_last),
         TEST("/copy", test_copy),
         TEST("/clone", test_clone),
         TEST("/equal", test_equal),
@@ -411,13 +505,13 @@ int main(int argc, char *const argv[])
         TEST("/count_cmp", test_count_cmp),
         TEST("/all", test_all),
         TEST("/all_cmp", test_all_cmp),
-        // TEST("/any", test_any),
-        // TEST("/any_cmp", test_any_cmp),
+        TEST("/any", test_any),
+        TEST("/any_cmp", test_any_cmp),
         TEST("/join", test_join),
         TEST("/reverse", test_reverse),
         TEST("/lenght", test_lenght),
-        // TEST("/map", test_map),
-        // TEST("/filter", test_filter),
+        TEST("/map", test_map),
+        TEST("/filter", test_filter),
         {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}};
     MunitSuite suite = {"/linked_list", tests, NULL, 1, MUNIT_SUITE_OPTION_NONE};
     munit_suite_main(&suite, NULL, argc, argv);
