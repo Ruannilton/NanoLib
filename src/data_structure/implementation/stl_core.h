@@ -49,6 +49,8 @@
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
+        assert(from + steps >= 0);                                                                                                                                     \
+        check_buffer_overflow_acess(buffer, (sizeof(type) * (from + steps)));                                                                                          \
         if (steps > 0)                                                                                                                                                 \
         {                                                                                                                                                              \
             size_t mv_size = ((lenght - from) - steps) * sizeof(type);                                                                                                 \
@@ -88,6 +90,7 @@
     {                                                                                                                                                                  \
         assert(index != NULL);                                                                                                                                         \
         assert(buffer != NULL);                                                                                                                                        \
+        check_buffer_overflow_acess(buffer, (sizeof(type) * (*index)));                                                                                                \
         buffer[(*index)] = value;                                                                                                                                      \
         *index = (*index) + 1;                                                                                                                                         \
     }                                                                                                                                                                  \
@@ -96,6 +99,7 @@
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
         assert(index < lenght);                                                                                                                                        \
+        check_buffer_overflow_acess(buffer, (sizeof(type) * index));                                                                                                   \
         __stl_fn(type, __base_name, desloc)(buffer, lenght, index, 1);                                                                                                 \
         buffer[index] = value;                                                                                                                                         \
     }                                                                                                                                                                  \
@@ -108,6 +112,7 @@
     void __stl_fn(type, __base_name, set)(type * buffer, type value, size_t index)                                                                                     \
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
+        check_buffer_overflow_acess(buffer, (sizeof(type) * index));                                                                                                   \
         buffer[index] = value;                                                                                                                                         \
     }                                                                                                                                                                  \
     void __stl_fn(type, __base_name, pop_front)(type * buffer, size_t lenght)                                                                                          \
@@ -121,6 +126,7 @@
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
         assert(index < lenght);                                                                                                                                        \
+        check_buffer_overflow_acess(buffer, (sizeof(type) * index));                                                                                                   \
         if (index != lenght - 1)                                                                                                                                       \
         {                                                                                                                                                              \
             size_t mv_size = ((lenght - 1) - index) * sizeof(type);                                                                                                    \
@@ -132,6 +138,7 @@
     type __stl_fn(type, __base_name, get)(type * buffer, size_t index)                                                                                                 \
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
+        check_buffer_overflow_acess(buffer, (sizeof(type) * index));                                                                                                   \
         return buffer[index];                                                                                                                                          \
     }                                                                                                                                                                  \
     type __stl_fn(type, __base_name, first)(type * buffer)                                                                                                             \
@@ -143,6 +150,7 @@
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(len > 0);                                                                                                                                               \
+        check_buffer_overflow_acess(buffer, (sizeof(type) * (len - 1)));                                                                                               \
         return buffer[len - 1];                                                                                                                                        \
     }                                                                                                                                                                  \
     void __stl_fn(type, __base_name, copy)(type * buffer, type * *out, size_t start, size_t end)                                                                       \
@@ -152,6 +160,7 @@
         assert(*out != NULL);                                                                                                                                          \
         assert(end > 0);                                                                                                                                               \
         size_t len = end - start;                                                                                                                                      \
+        check_buffer_overflow_size(*out, len * sizeof(type));                                                                                                          \
         cstl_memcpy(*out, &buffer[start], len * sizeof(type));                                                                                                         \
     }                                                                                                                                                                  \
     void __stl_fn(type, __base_name, clone)(type * buffer, type * *out, size_t lenght)                                                                                 \
@@ -160,6 +169,7 @@
         assert(out != NULL);                                                                                                                                           \
         assert(*out != NULL);                                                                                                                                          \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(*out, lenght * sizeof(type));                                                                                                       \
         cstl_memcpy(*out, buffer, lenght * sizeof(type));                                                                                                              \
     }                                                                                                                                                                  \
     bool __stl_fn(type, __base_name, equal)(type * a, type * b, size_t lenght)                                                                                         \
@@ -167,14 +177,18 @@
         assert(a != NULL);                                                                                                                                             \
         assert(b != NULL);                                                                                                                                             \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(a, lenght * sizeof(type));                                                                                                          \
+        check_buffer_overflow_size(b, lenght * sizeof(type));                                                                                                          \
         return cstl_memcmp(a, b, lenght * sizeof(type)) == 0;                                                                                                          \
     }                                                                                                                                                                  \
     void __stl_fn(type, __base_name, fill)(type * buffer, type value, size_t lenght)                                                                                   \
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (size_t i = 0; i < lenght; i++)                                                                                                                            \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             buffer[i] = value;                                                                                                                                         \
         }                                                                                                                                                              \
     }                                                                                                                                                                  \
@@ -182,8 +196,10 @@
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (uint64_t i = 0; i < lenght; i++)                                                                                                                          \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if (buffer[i] == value)                                                                                                                                    \
                 return i;                                                                                                                                              \
         }                                                                                                                                                              \
@@ -194,8 +210,10 @@
         assert(buffer != NULL);                                                                                                                                        \
         assert(cmp != NULL);                                                                                                                                           \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (uint64_t i = 0; i < lenght; i++)                                                                                                                          \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if ((*cmp)(buffer[i], value) == true)                                                                                                                      \
                 return i;                                                                                                                                              \
         }                                                                                                                                                              \
@@ -215,8 +233,10 @@
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
         size_t count = 0;                                                                                                                                              \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (size_t i = 0; i < lenght; i++)                                                                                                                            \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if (cstl_memcmp((void *)&buffer[i], (void *)(&value), sizeof(value)) == 0)                                                                                 \
             {                                                                                                                                                          \
                 count++;                                                                                                                                               \
@@ -230,8 +250,10 @@
         assert(cmp != NULL);                                                                                                                                           \
         assert(lenght > 0);                                                                                                                                            \
         size_t count = 0;                                                                                                                                              \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (size_t i = 0; i < lenght; i++)                                                                                                                            \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if ((*cmp)(buffer[i], value) == true)                                                                                                                      \
             {                                                                                                                                                          \
                 count++;                                                                                                                                               \
@@ -243,8 +265,10 @@
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (uint64_t i = 0; i < lenght; i++)                                                                                                                          \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if (!cstl_memcmp((void *)&buffer[i], (void *)(&value), sizeof(type)) == 0)                                                                                 \
             {                                                                                                                                                          \
                 return false;                                                                                                                                          \
@@ -256,8 +280,10 @@
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (uint64_t i = 0; i < lenght; i++)                                                                                                                          \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if (cstl_memcmp((void *)&buffer[i], (void *)(&value), sizeof(type)) == 0)                                                                                  \
             {                                                                                                                                                          \
                 return true;                                                                                                                                           \
@@ -270,8 +296,10 @@
         assert(buffer != NULL);                                                                                                                                        \
         assert(cmp != NULL);                                                                                                                                           \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (uint64_t i = 0; i < lenght; i++)                                                                                                                          \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if ((*cmp)(buffer[i], value) != true)                                                                                                                      \
             {                                                                                                                                                          \
                 return false;                                                                                                                                          \
@@ -284,8 +312,10 @@
         assert(buffer != NULL);                                                                                                                                        \
         assert(cmp != NULL);                                                                                                                                           \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         for (uint64_t i = 0; i < lenght; i++)                                                                                                                          \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if ((*cmp)(buffer[i], value) == true)                                                                                                                      \
             {                                                                                                                                                          \
                 return true;                                                                                                                                           \
@@ -300,6 +330,8 @@
         assert(b != NULL);                                                                                                                                             \
         assert(lenght_a > 0);                                                                                                                                          \
         assert(lenght_b > 0);                                                                                                                                          \
+        check_buffer_overflow_size(*a, lenght_a * sizeof(type));                                                                                                       \
+        check_buffer_overflow_size(b, lenght_b * sizeof(type));                                                                                                        \
         size_t new_size = sizeof(type) * (lenght_a + lenght_b);                                                                                                        \
         void *new_ptr = cstl_realloc(*a, new_size);                                                                                                                    \
         if (new_ptr)                                                                                                                                                   \
@@ -312,10 +344,13 @@
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         size_t start = 0;                                                                                                                                              \
         size_t end = lenght - 1;                                                                                                                                       \
         while (start < end)                                                                                                                                            \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, start * sizeof(type));                                                                                                 \
+            check_buffer_overflow_acess(buffer, end * sizeof(type));                                                                                                   \
             type tmp = buffer[start];                                                                                                                                  \
             buffer[start] = buffer[end];                                                                                                                               \
             buffer[end] = tmp;                                                                                                                                         \
@@ -329,9 +364,14 @@
         assert(out != NULL);                                                                                                                                           \
         assert(map_fn != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         *out = cstl_malloc(lenght * sizeof(type));                                                                                                                     \
         for (size_t i = 0; i < lenght; i++)                                                                                                                            \
+        {                                                                                                                                                              \
+            check_buffer_overflow_acess(*out, i * sizeof(type));                                                                                                       \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             (*out)[i] = map_fn(buffer[i], i);                                                                                                                          \
+        }                                                                                                                                                              \
     }                                                                                                                                                                  \
     void __stl_fn(type, __base_name, filter)(type * buffer, type * *out, size_t lenght, bool (*filter_fn)(type value, size_t index, type * filtered), size_t *out_len) \
     {                                                                                                                                                                  \
@@ -340,17 +380,20 @@
         assert(filter_fn != NULL);                                                                                                                                     \
         assert(out_len != NULL);                                                                                                                                       \
         assert(lenght > 0);                                                                                                                                            \
+        check_buffer_overflow_size(buffer, lenght * sizeof(type));                                                                                                     \
         *out = cstl_malloc((*out_len == 0 ? lenght / 2 : lenght) * sizeof(type));                                                                                      \
         size_t count = 0;                                                                                                                                              \
         type filtered;                                                                                                                                                 \
         for (size_t i = 0; i < lenght; i++)                                                                                                                            \
         {                                                                                                                                                              \
+            check_buffer_overflow_acess(buffer, i * sizeof(type));                                                                                                     \
             if (filter_fn(buffer[i], i, &filtered))                                                                                                                    \
             {                                                                                                                                                          \
                 if (count + 1 > lenght)                                                                                                                                \
                 {                                                                                                                                                      \
                     *out = cstl_realloc(*out, sizeof(type) * lenght);                                                                                                  \
                 }                                                                                                                                                      \
+                check_buffer_overflow_acess(buffer, (count + 1) * sizeof(type));                                                                                       \
                 (*out)[count++] = filtered;                                                                                                                            \
             }                                                                                                                                                          \
         }                                                                                                                                                              \

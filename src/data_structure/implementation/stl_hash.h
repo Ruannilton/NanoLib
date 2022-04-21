@@ -35,13 +35,16 @@
         assert(hash_fn != NULL);                                                                                                                                                                      \
         assert(cmp_key_fn != NULL);                                                                                                                                                                   \
         assert(lenght > 0);                                                                                                                                                                           \
+        const size_t __bucket_size = sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t));                                                                                            \
         hash_ptr->len = lenght;                                                                                                                                                                       \
         hash_ptr->hash_fn = (hash_fn != 0) ? (hash_fn) : (_____concat(___stl_def_hash_, key_type));                                                                                                   \
         hash_ptr->cmp_key_fn = (cmp_key_fn != 0) ? (cmp_key_fn) : (_____concat(___stl_def_cmp_, key_type));                                                                                           \
-        hash_ptr->buffer = cstl_malloc((lenght * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t))));                                                                              \
+        hash_ptr->buffer = cstl_malloc((lenght * __bucket_size));                                                                                                                                     \
         hash_ptr->count = 0;                                                                                                                                                                          \
+        check_buffer_overflow_size(hash_ptr->buffer, lenght *__bucket_size);                                                                                                                          \
         for (size_t i = 0; i < lenght; i++)                                                                                                                                                           \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i *__bucket_size);                                                                                                                          \
             hash_ptr->buffer[i].arr = 0;                                                                                                                                                              \
             hash_ptr->buffer[i].count = 0;                                                                                                                                                            \
             hash_ptr->buffer[i].len = 0;                                                                                                                                                              \
@@ -51,6 +54,7 @@
     {                                                                                                                                                                                                 \
         assert(hash_ptr != NULL);                                                                                                                                                                     \
         uintmax_t insert_index = hash_ptr->hash_fn((char *)(&(key))) % hash_ptr->len;                                                                                                                 \
+        check_buffer_overflow_acess(hash_ptr->buffer, insert_index * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         _____concat(__stl_bucket(key_type, value_type), _hash_arr_t) *bucket_arr = hash_ptr->buffer + insert_index;                                                                                   \
                                                                                                                                                                                                       \
         if (bucket_arr->len == 0)                                                                                                                                                                     \
@@ -64,6 +68,7 @@
         {                                                                                                                                                                                             \
             for (size_t i = 0; i < bucket_arr->count; i++)                                                                                                                                            \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(bucket_arr->arr, i * sizeof(__stl_bucket(key_type, value_type)));                                                                                         \
                 if (hash_ptr->cmp_key_fn(bucket_arr->arr[i].key, key))                                                                                                                                \
                 {                                                                                                                                                                                     \
                     bucket_arr->arr[i].value = value;                                                                                                                                                 \
@@ -80,7 +85,7 @@
             if (ptr)                                                                                                                                                                                  \
                 bucket_arr->arr = ptr;                                                                                                                                                                \
         }                                                                                                                                                                                             \
-                                                                                                                                                                                                      \
+        check_buffer_overflow_acess(bucket_arr->arr, bucket_arr->count * sizeof(__stl_bucket(key_type, value_type)));                                                                                 \
         bucket_arr->arr[bucket_arr->count] = (__stl_bucket(key_type, value_type)){.key = key, .value = value};                                                                                        \
         bucket_arr->count++;                                                                                                                                                                          \
         hash_ptr->count++;                                                                                                                                                                            \
@@ -89,12 +94,14 @@
     {                                                                                                                                                                                                 \
         assert(hash_ptr != NULL);                                                                                                                                                                     \
         uintmax_t get_index = hash_ptr->hash_fn((char *)(&(key))) % hash_ptr->len;                                                                                                                    \
+        check_buffer_overflow_acess(hash_ptr->buffer, get_index * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                              \
         _____concat(__stl_bucket(key_type, value_type), _hash_arr_t) *bucket_arr = &(hash_ptr->buffer[get_index]);                                                                                    \
         if (bucket_arr->len == 0 || bucket_arr->count == 0)                                                                                                                                           \
             return false;                                                                                                                                                                             \
                                                                                                                                                                                                       \
         for (size_t i = 0; i < bucket_arr->count; i++)                                                                                                                                                \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(bucket_arr->arr, i * sizeof(__stl_bucket(key_type, value_type)));                                                                                             \
             if (hash_ptr->cmp_key_fn(bucket_arr->arr[i].key, key))                                                                                                                                    \
             {                                                                                                                                                                                         \
                 *value = bucket_arr->arr[i].value;                                                                                                                                                    \
@@ -107,11 +114,13 @@
     {                                                                                                                                                                                                 \
         assert(hash_ptr != NULL);                                                                                                                                                                     \
         uintmax_t get_index = hash_ptr->hash_fn((char *)(&(key))) % hash_ptr->len;                                                                                                                    \
+        check_buffer_overflow_acess(hash_ptr->buffer, get_index * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                              \
         _____concat(__stl_bucket(key_type, value_type), _hash_arr_t) *bucket_arr = &(hash_ptr->buffer[get_index]);                                                                                    \
         if (bucket_arr->len == 0 || bucket_arr->count == 0)                                                                                                                                           \
             return false;                                                                                                                                                                             \
         for (size_t i = 0; i < bucket_arr->count; i++)                                                                                                                                                \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(bucket_arr->arr, i * sizeof(__stl_bucket(key_type, value_type)));                                                                                             \
             if (hash_ptr->cmp_key_fn(bucket_arr->arr[i].key, key))                                                                                                                                    \
             {                                                                                                                                                                                         \
                 return true;                                                                                                                                                                          \
@@ -123,14 +132,17 @@
     {                                                                                                                                                                                                 \
         assert(hash_ptr != NULL);                                                                                                                                                                     \
         uintmax_t get_index = hash_ptr->hash_fn((char *)(&(key))) % hash_ptr->len;                                                                                                                    \
+        check_buffer_overflow_acess(hash_ptr->buffer, get_index * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                              \
         _____concat(__stl_bucket(key_type, value_type), _hash_arr_t) *bucket_arr = &(hash_ptr->buffer[get_index]);                                                                                    \
         if (bucket_arr->len == 0 || bucket_arr->count == 0)                                                                                                                                           \
             return false;                                                                                                                                                                             \
         bool found = false;                                                                                                                                                                           \
         for (size_t i = 0; i < bucket_arr->count; i++)                                                                                                                                                \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(bucket_arr->arr, (i) * sizeof(__stl_bucket(key_type, value_type)));                                                                                           \
             if (found)                                                                                                                                                                                \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(bucket_arr->arr, (i - 1) * sizeof(__stl_bucket(key_type, value_type)));                                                                                   \
                 bucket_arr->arr[i - 1] = bucket_arr->arr[i];                                                                                                                                          \
             }                                                                                                                                                                                         \
             else if (hash_ptr->cmp_key_fn(bucket_arr->arr[i].key, key))                                                                                                                               \
@@ -148,8 +160,10 @@
     void __stl_fn_hash(key_type, value_type, hash_map, free)(__stl_t_hash(key_type, value_type) * hash_ptr)                                                                                           \
     {                                                                                                                                                                                                 \
         assert(hash_ptr != NULL);                                                                                                                                                                     \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
             cstl_free(hash_ptr->buffer[i].arr);                                                                                                                                                       \
             hash_ptr->buffer[i].arr = 0;                                                                                                                                                              \
         }                                                                                                                                                                                             \
@@ -159,8 +173,10 @@
     void __stl_fn_hash(key_type, value_type, hash_map, clear)(__stl_t_hash(key_type, value_type) * hash_ptr)                                                                                          \
     {                                                                                                                                                                                                 \
         assert(hash_ptr != NULL);                                                                                                                                                                     \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
             cstl_free(hash_ptr->buffer[i].arr);                                                                                                                                                       \
             hash_ptr->buffer[i].arr = 0;                                                                                                                                                              \
             hash_ptr->buffer[i].count = 0;                                                                                                                                                            \
@@ -175,6 +191,9 @@
     }                                                                                                                                                                                                 \
     void __stl_fn_hash(key_type, value_type, hash_map, clone)(__stl_t_hash(key_type, value_type) * source, __stl_t_hash(key_type, value_type) * *dest)                                                \
     {                                                                                                                                                                                                 \
+        assert(source != NULL);                                                                                                                                                                       \
+        assert(dest != NULL);                                                                                                                                                                         \
+        assert(*dest != NULL);                                                                                                                                                                        \
         (*dest)->len = source->len;                                                                                                                                                                   \
         (*dest)->count = source->count;                                                                                                                                                               \
         (*dest)->hash_fn = source->hash_fn;                                                                                                                                                           \
@@ -190,13 +209,20 @@
     }                                                                                                                                                                                                 \
     bool __stl_fn_hash(key_type, value_type, hash_map, equal)(__stl_t_hash(key_type, value_type) * a, __stl_t_hash(key_type, value_type) * b)                                                         \
     {                                                                                                                                                                                                 \
+        assert(a != NULL);                                                                                                                                                                            \
+        assert(b != NULL);                                                                                                                                                                            \
         if (a->len == b->len &&                                                                                                                                                                       \
             a->count == b->count &&                                                                                                                                                                   \
             a->hash_fn == b->hash_fn &&                                                                                                                                                               \
             a->cmp_key_fn == b->cmp_key_fn)                                                                                                                                                           \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_size(a->buffer, a->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                     \
             for (size_t i = 0; i < a->len; i++)                                                                                                                                                       \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(a->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                     \
+                check_buffer_overflow_acess(b->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                     \
+                check_buffer_overflow_size(a->buffer[i].arr, sizeof(__stl_bucket(key_type, value_type)) * a->buffer[i].len);                                                                          \
+                check_buffer_overflow_size(b->buffer[i].arr, sizeof(__stl_bucket(key_type, value_type)) * a->buffer[i].len);                                                                          \
                 if (!(a->buffer[i].len == b->buffer[i].len &&                                                                                                                                         \
                       cstl_memcmp(a->buffer[i].arr, b->buffer[i].arr, sizeof(__stl_bucket(key_type, value_type)) * a->buffer[i].len) == 0))                                                           \
                     return false;                                                                                                                                                                     \
@@ -208,10 +234,14 @@
     size_t __stl_fn_hash(key_type, value_type, hash_map, count_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value)                                                               \
     {                                                                                                                                                                                                 \
         size_t count = 0;                                                                                                                                                                             \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__stl_bucket(key_type, value_type)));                                                                \
             for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                       \
                 if (hash_ptr->buffer[i].arr[j].value == value)                                                                                                                                        \
                     count++;                                                                                                                                                                          \
             }                                                                                                                                                                                         \
@@ -221,10 +251,14 @@
     size_t __stl_fn_hash(key_type, value_type, hash_map, count_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b))                  \
     {                                                                                                                                                                                                 \
         size_t count = 0;                                                                                                                                                                             \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__stl_bucket(key_type, value_type)));                                                                \
             for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                       \
                 if (cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                     \
                     count++;                                                                                                                                                                          \
             }                                                                                                                                                                                         \
@@ -233,10 +267,14 @@
     }                                                                                                                                                                                                 \
     bool __stl_fn_hash(key_type, value_type, hash_map, all_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value)                                                                   \
     {                                                                                                                                                                                                 \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__stl_bucket(key_type, value_type)));                                                                \
             for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                       \
                 if (hash_ptr->buffer[i].arr[j].value != value)                                                                                                                                        \
                     return false;                                                                                                                                                                     \
             }                                                                                                                                                                                         \
@@ -245,10 +283,14 @@
     }                                                                                                                                                                                                 \
     bool __stl_fn_hash(key_type, value_type, hash_map, all_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b))                      \
     {                                                                                                                                                                                                 \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__stl_bucket(key_type, value_type)));                                                                \
             for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                       \
                 if (!cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                    \
                     return false;                                                                                                                                                                     \
             }                                                                                                                                                                                         \
@@ -257,10 +299,14 @@
     }                                                                                                                                                                                                 \
     bool __stl_fn_hash(key_type, value_type, hash_map, any_values)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value)                                                                   \
     {                                                                                                                                                                                                 \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__stl_bucket(key_type, value_type)));                                                                \
             for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                       \
                 if (hash_ptr->buffer[i].arr[j].value == value)                                                                                                                                        \
                     return true;                                                                                                                                                                      \
             }                                                                                                                                                                                         \
@@ -269,10 +315,14 @@
     }                                                                                                                                                                                                 \
     bool __stl_fn_hash(key_type, value_type, hash_map, any_values_cmp)(__stl_t_hash(key_type, value_type) * hash_ptr, value_type value, bool (*cmp)(value_type a, value_type b))                      \
     {                                                                                                                                                                                                 \
+        check_buffer_overflow_size(hash_ptr->buffer, hash_ptr->len * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                           \
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                    \
         {                                                                                                                                                                                             \
+            check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                                  \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__stl_bucket(key_type, value_type)));                                                                \
             for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                      \
             {                                                                                                                                                                                         \
+                check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__stl_bucket(key_type, value_type), _hash_arr_t)));                                                       \
                 if (cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                     \
                     return true;                                                                                                                                                                      \
             }                                                                                                                                                                                         \

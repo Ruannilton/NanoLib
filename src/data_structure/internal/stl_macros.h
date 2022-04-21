@@ -5,6 +5,24 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <malloc.h>
+
+#if __linux__
+#define memsize malloc_usable_size
+#elif __APPLE__
+#define memsize malloc_size
+#elif __WIN32 || __WIN64
+#define memsize _msize
+#else
+#defined memsize 0
+#endif
+
+#define check_buffer_overflow_acess(pointer, size) assert((size) < memsize((pointer)) && "Try to acess index out of bounds")
+#define check_buffer_overflow_size(pointer, size) assert((size) <= memsize((pointer)) && "Buffer have less size than requested")
+
+#ifdef NDEBUG
+#defined memsize 0
+#endif
 
 #define __prefix stl_
 #define __base_name core
