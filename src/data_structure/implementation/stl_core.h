@@ -49,7 +49,7 @@
     {                                                                                                                                                                  \
         assert(buffer != NULL);                                                                                                                                        \
         assert(lenght > 0);                                                                                                                                            \
-        assert(from + steps >= 0);                                                                                                                                     \
+        assert(((int)from) + steps >= 0);                                                                                                                              \
         check_buffer_overflow_acess(buffer, (sizeof(type) * (from + steps)));                                                                                          \
         if (steps > 0)                                                                                                                                                 \
         {                                                                                                                                                              \
@@ -64,8 +64,8 @@
         }                                                                                                                                                              \
         else                                                                                                                                                           \
         {                                                                                                                                                              \
-            uint64_t new_index = from + steps;                                                                                                                         \
-            uint64_t mv_size = (lenght - new_index) * sizeof(type);                                                                                                    \
+            int new_index = from + steps;                                                                                                                              \
+            int mv_size = (lenght - new_index) * sizeof(type);                                                                                                         \
             if (mv_size > 0)                                                                                                                                           \
             {                                                                                                                                                          \
                 void *pfrom = (void *)(&buffer[from]);                                                                                                                 \
