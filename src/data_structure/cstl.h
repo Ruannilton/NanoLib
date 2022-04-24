@@ -52,11 +52,15 @@
 #include "definitions/stl_vector.h"
 #include "definitions/stl_hash.h"
 #include "definitions/stl_linked_list.h"
+#include "definitions/stl_stack.h"
+#include "definitions/stl_queue.h"
 
 #include "implementation/stl_core.h"
 #include "implementation/stl_array.h"
 #include "implementation/stl_vector.h"
 #include "implementation/stl_hash.h"
 #include "implementation/stl_linked_list.h"
+#include "implementation/stl_stack.h"
+#include "implementation/stl_queue.h"
 
 #endif
