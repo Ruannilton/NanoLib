@@ -1,4 +1,4 @@
-# stl_vector
+# nano_vector
 
 Sua estrutura e funcionaliade assemelha-se a um array, entretanto seu tamanho é variável, realocando-se automáticamente a medida que não há espaço inutilizado e novos itens são adicionados.
 

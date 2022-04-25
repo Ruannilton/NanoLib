@@ -1,6 +1,6 @@
 
-#include "data_structure/cstl.h"
+#include "data_structure/cnano.h"
 
 typedef char *string;
 
-stl_declare_vector_for(string);
+nano_declare_vector_for(string);

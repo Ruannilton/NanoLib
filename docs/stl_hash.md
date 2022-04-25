@@ -1,4 +1,4 @@
-# stl_hash
+# nano_hash
 Armazena dados no formato chave-valor, para tal é necessário o fornecimento de uma função que gere um índice a partir do valor fornecido, quanto menor a repetibilidade de índices gerados para valores diferentes melhor a função de hash.
 
 Para lidar com as colisões o hash_map utiliza vetores internamente, assim caso duas chaves gerem o mesmo índice ambas serão adicionadas no vetor associado aquele índice, um vetor só é alocado quando há pelo menos uma chave pertencente aquele índice.

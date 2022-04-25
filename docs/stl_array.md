@@ -1,4 +1,4 @@
-# stl_array
+# nano_array
 
 A estrutura mais proxima de um array puro, a única diferença é que esta estrutura contém um campo para armazenar o seu tamanho.
 

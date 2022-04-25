@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define CSTL_IMPLEMENT
-#include "../../../src/data_structure/cstl.h"
+#define CNANO_IMPLEMENT
+#include "../../../src/data_structure/cnano.h"
 
-stl_core_implement(int);
-stl_declare_array(int);
-stl_implement_array(int);
+nano_core_implement(int);
+nano_declare_array(int);
+nano_implement_array(int);
 
 #define TEST(name, function)                                       \
     {                                                              \

@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define CSTL_IMPLEMENT
-#include "../../../src/data_structure/cstl.h"
+#define CNANO_IMPLEMENT
+#include "../../../src/data_structure/cnano.h"
 
 typedef char *string;
-stl_declare_hash_table(string, string);
-stl_implement_hash_table(string, string);
+nano_declare_hash_table(string, string);
+nano_implement_hash_table(string, string);
 
 #define TEST(name, function)                                       \
     {                                                              \

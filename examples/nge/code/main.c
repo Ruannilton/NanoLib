@@ -9,7 +9,7 @@ void present(vector(string) * vec)
     vector_foreach(
         string, vec,
         {
-            printf("%s, ", cstl_value);
+            printf("%s, ", cnano_value);
         });
     printf("\n");
 }

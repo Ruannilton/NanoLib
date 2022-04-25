@@ -1,4 +1,4 @@
-# stl_linked_list
+# nano_linked_list
 
 Lista duplamente encadeada.
 
