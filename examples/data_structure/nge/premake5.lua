@@ -1,7 +1,7 @@
 workspace "NanoLib"
     configurations {"Debug"}
     location "build"
-    includedirs { "../../src" }
+    includedirs { "../../../src" }
     
 project "data_structure"
     kind "ConsoleApp"

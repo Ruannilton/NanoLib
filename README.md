@@ -64,12 +64,12 @@ A macro nano_implement_core também deve ser chamada uma única vez para cada ti
 
 ### Documentação
 
-* [array](docs/nano_array.md)
-* [vector](docs/nano_vector.md)
-* [hash_map](docs/nano_hash.md)
-* [linked_list](docs/nano_linked_list.md)
-* [queue](docs/nano_queue.md)
-* [stack](docs/nano_stack.md)
+* [array](docs/data_structure/nano_array.md)
+* [vector](docs/data_structure/nano_vector.md)
+* [hash_map](docs/data_structure/nano_hash.md)
+* [linked_list](docs/data_structure/nano_linked_list.md)
+* [queue](docs/data_structure/nano_queue.md)
+* [stack](docs/data_structure/nano_stack.md)
 
 ### Roadmap
 <br>

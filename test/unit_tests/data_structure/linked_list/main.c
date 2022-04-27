@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define CNANO_IMPLEMENT
-#include "../../../src/data_structure/cnano.h"
+#include "../../../../src/data_structure/cnano.h"
 
 nano_core_implement(int);
 nano_declare_linked_list(int);

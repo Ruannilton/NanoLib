@@ -91,7 +91,7 @@ int main()
 
     printf("\nLets put them togheter");
 
-    vector_join(string)(&names, &others, names.count, others.count);
+    vector_join(string)(&names, &others);
 
     present(&names);
 

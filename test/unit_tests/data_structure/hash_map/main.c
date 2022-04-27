@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define CNANO_IMPLEMENT
-#include "../../../src/data_structure/cnano.h"
+#include "../../../../src/data_structure/cnano.h"
 
 typedef char *string;
 nano_declare_hash_table(string, string);
