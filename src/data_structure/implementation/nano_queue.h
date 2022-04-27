@@ -1,9 +1,7 @@
 #ifndef NANO_QUEUE_IMPL_H
 #define NANO_QUEUE_IMPL_H
 
-#include "../internal/nano_macros.h"
-#include "../internal/nano_foreach_macro.h"
-#include <assert.h>
+#include "nano_core.h"
 
 #define nano_implement_queue_for(...) call_macro_x_for_each(nano_implement_queue, __VA_ARGS__)
 

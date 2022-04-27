@@ -221,10 +221,10 @@
             {                                                                                                                                                                                           \
                 check_buffer_overflow_acess(a->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                      \
                 check_buffer_overflow_acess(b->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                      \
-                check_buffer_overflow_size(a->buffer[i].arr, sizeof(__nano_bucket(key_type, value_type)) * a->buffer[i].len);                                                                           \
-                check_buffer_overflow_size(b->buffer[i].arr, sizeof(__nano_bucket(key_type, value_type)) * a->buffer[i].len);                                                                           \
-                if (!(a->buffer[i].len == b->buffer[i].len &&                                                                                                                                           \
-                      nano_memcmp(a->buffer[i].arr, b->buffer[i].arr, sizeof(__nano_bucket(key_type, value_type)) * a->buffer[i].len) == 0))                                                            \
+                check_buffer_overflow_size(a->buffer[i].arr, sizeof(__nano_bucket(key_type, value_type)) * a->buffer[i].count);                                                                         \
+                check_buffer_overflow_size(b->buffer[i].arr, sizeof(__nano_bucket(key_type, value_type)) * a->buffer[i].count);                                                                         \
+                if (!(a->buffer[i].count == b->buffer[i].count &&                                                                                                                                       \
+                      nano_memcmp(a->buffer[i].arr, b->buffer[i].arr, sizeof(__nano_bucket(key_type, value_type)) * a->buffer[i].count) == 0))                                                          \
                     return false;                                                                                                                                                                       \
             }                                                                                                                                                                                           \
             return true;                                                                                                                                                                                \
@@ -238,8 +238,8 @@
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                      \
         {                                                                                                                                                                                               \
             check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                   \
-            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__nano_bucket(key_type, value_type)));                                                                 \
-            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                        \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].count * sizeof(__nano_bucket(key_type, value_type)));                                                               \
+            for (size_t j = 0; j < hash_ptr->buffer[i].count; j++)                                                                                                                                      \
             {                                                                                                                                                                                           \
                 check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                        \
                 if (hash_ptr->buffer[i].arr[j].value == value)                                                                                                                                          \
@@ -255,8 +255,8 @@
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                      \
         {                                                                                                                                                                                               \
             check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                   \
-            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__nano_bucket(key_type, value_type)));                                                                 \
-            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                        \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].count * sizeof(__nano_bucket(key_type, value_type)));                                                               \
+            for (size_t j = 0; j < hash_ptr->buffer[i].count; j++)                                                                                                                                      \
             {                                                                                                                                                                                           \
                 check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                        \
                 if (cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                       \
@@ -271,8 +271,8 @@
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                      \
         {                                                                                                                                                                                               \
             check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                   \
-            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__nano_bucket(key_type, value_type)));                                                                 \
-            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                        \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].count * sizeof(__nano_bucket(key_type, value_type)));                                                               \
+            for (size_t j = 0; j < hash_ptr->buffer[i].count; j++)                                                                                                                                      \
             {                                                                                                                                                                                           \
                 check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                        \
                 if (hash_ptr->buffer[i].arr[j].value != value)                                                                                                                                          \
@@ -287,8 +287,8 @@
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                      \
         {                                                                                                                                                                                               \
             check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                   \
-            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__nano_bucket(key_type, value_type)));                                                                 \
-            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                        \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].count * sizeof(__nano_bucket(key_type, value_type)));                                                               \
+            for (size_t j = 0; j < hash_ptr->buffer[i].count; j++)                                                                                                                                      \
             {                                                                                                                                                                                           \
                 check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                        \
                 if (!cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                      \
@@ -303,8 +303,8 @@
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                      \
         {                                                                                                                                                                                               \
             check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                   \
-            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__nano_bucket(key_type, value_type)));                                                                 \
-            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                        \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].count * sizeof(__nano_bucket(key_type, value_type)));                                                               \
+            for (size_t j = 0; j < hash_ptr->buffer[i].count; j++)                                                                                                                                      \
             {                                                                                                                                                                                           \
                 check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                        \
                 if (hash_ptr->buffer[i].arr[j].value == value)                                                                                                                                          \
@@ -319,8 +319,8 @@
         for (size_t i = 0; i < hash_ptr->len; i++)                                                                                                                                                      \
         {                                                                                                                                                                                               \
             check_buffer_overflow_acess(hash_ptr->buffer, i * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                                   \
-            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].len * sizeof(__nano_bucket(key_type, value_type)));                                                                 \
-            for (size_t j = 0; j < hash_ptr->buffer[i].len; j++)                                                                                                                                        \
+            check_buffer_overflow_size(hash_ptr->buffer[i].arr, hash_ptr->buffer[i].count * sizeof(__nano_bucket(key_type, value_type)));                                                               \
+            for (size_t j = 0; j < hash_ptr->buffer[i].count; j++)                                                                                                                                      \
             {                                                                                                                                                                                           \
                 check_buffer_overflow_acess(hash_ptr->buffer[i].arr, j * sizeof(_____concat(__nano_bucket(key_type, value_type), _hash_arr_t)));                                                        \
                 if (cmp(hash_ptr->buffer[i].arr[j].value, value))                                                                                                                                       \

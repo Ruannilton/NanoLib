@@ -2,7 +2,7 @@
 #define NANO_VECTOR_IMPL_H
 
 #include "nano_core.h"
-#include <assert.h>
+
 #define nano_implement_vector_for(...) call_macro_x_for_each(nano_implement_vector, __VA_ARGS__)
 
 #define __internal_vec_inc(vec, type, inc)                                            \
@@ -190,6 +190,11 @@
     {                                                                                                                                                              \
         assert(vec != NULL);                                                                                                                                       \
         __nano_fn(type, __base_name, reverse)(vec->buffer, vec->count);                                                                                            \
+    }                                                                                                                                                              \
+    void __nano_fn(type, vector, clear)(__nano_t(type, vector) * vec)                                                                                              \
+    {                                                                                                                                                              \
+        assert(vec != NULL);                                                                                                                                       \
+        vec->lenght = 0;                                                                                                                                           \
     }                                                                                                                                                              \
     void __nano_fn(type, vector, free)(__nano_t(type, vector) * vec)                                                                                               \
     {                                                                                                                                                              \

@@ -102,14 +102,14 @@ A macro nano_implement_core também deve ser chamada uma única vez para cada ti
 | find_cmp |   x    |     -    |      x       |   x    |   x   |   x   | 
 | resize   |   x    |     -    |      -       |   x    |   x   |   x   | 
 | count    |   x    |     x    |      x       |   x    |   x   |   x   | 
-| count_cmp|   x    |     E    |      x       |   x    |   x   |   x   | 
-| all      |   x    |     E    |      x       |   x    |   x   |   x   | 
-| all_cmp  |   x    |     E    |      x       |   x    |   x   |   x   | 
-| any      |   x    |     E    |      x       |   x    |   x   |   x   | 
-| any_cmp  |   x    |     E    |      x       |   x    |   x   |   x   | 
-| join     |   x    |          |      x       |   x    |   x   |   x   | 
+| count_cmp|   x    |     x    |      x       |   x    |   x   |   x   | 
+| all      |   x    |     x    |      x       |   x    |   x   |   x   | 
+| all_cmp  |   x    |     x    |      x       |   x    |   x   |   x   | 
+| any      |   x    |     x    |      x       |   x    |   x   |   x   | 
+| any_cmp  |   x    |     x    |      x       |   x    |   x   |   x   | 
+| join     |   x    |     -    |      x       |   x    |   x   |   x   | 
 | reverse  |   x    |     -    |      x       |   x    |   x   |   x   | 
-| clear    |   -    |     x    |      -       |        |   x   |   x   | 
+| clear    |   -    |     x    |      -       |   x    |   x   |   x   | 
 | free     |   x    |     x    |      x       |   x    |   x   |   x   | 
-| map      |   x    |          |      x       |   x    |   x   |   x   | 
-| filter   |   x    |          |      x       |   x    |   x   |   x   |
+| map      |   x    |     -    |      x       |   x    |   x   |   x   | 
+| filter   |   x    |     -    |      x       |   x    |   x   |   x   |

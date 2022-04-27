@@ -2,7 +2,6 @@
 #define NANO_ARRAY_IMPL_H
 
 #include "nano_core.h"
-#include <assert.h>
 
 #define nano_implement_array_for(...) call_macro_x_for_each(nano_implement_array, __VA_ARGS__)
 

@@ -34,6 +34,7 @@
 #define vector_join(type) __nano_fn(type, vector, join)
 #define vector_reverse(type) __nano_fn(type, vector, reverse)
 #define vector_free(type) __nano_fn(type, vector, free)
+#define vector_clear(type) __nano_fn(type, vector, clear)
 #define vector_lenght(type) __nano_fn(type, vector, lenght)
 #define vector_map(type) __nano_fn(type, vector, map)
 #define vector_filter(type) __nano_fn(type, vector, filter)
@@ -81,6 +82,7 @@
     void __nano_fn(type, vector, join)(__nano_t(type, vector) * a, __nano_t(type, vector) * b);                               \
     void __nano_fn(type, vector, reverse)(__nano_t(type, vector) * arr);                                                      \
     void __nano_fn(type, vector, free)(__nano_t(type, vector) * arr);                                                         \
+    void __nano_fn(type, vector, clear)(__nano_t(type, vector) * arr);                                                        \
     size_t __nano_fn(type, vector, lenght)(__nano_t(type, vector) * arr);                                                     \
     void __nano_fn(type, vector, map)(__nano_t(type, vector) * vec, type * *out, type(*map_fn)(type value, size_t index));    \
     void __nano_fn(type, vector, filter)(__nano_t(type, vector) * vec, type * *out, bool (*filter_fn)(type value, size_t index, type * filtered), size_t *out_len);

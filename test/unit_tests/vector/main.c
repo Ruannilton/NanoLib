@@ -84,6 +84,24 @@ TEST_FUNC(test_set)
     return MUNIT_OK;
 }
 
+TEST_FUNC(test_clear)
+{
+    vector(int) *vec = user_data;
+    int v1 = munit_rand_uint32();
+    int v2 = munit_rand_uint32();
+    int v3 = munit_rand_uint32();
+
+    vector_set(int)(vec, v1, 0);
+    vector_set(int)(vec, v2, 1);
+    vector_set(int)(vec, v3, 2);
+
+    vector_clear(int)(vec);
+
+    assert(vec->count == 0);
+
+    return MUNIT_OK;
+}
+
 TEST_FUNC(test_remove)
 {
     vector(int) *vec = user_data;
@@ -538,6 +556,7 @@ int main(int argc, char *const argv[])
         TEST("/join", test_join),
         TEST("/reverse", test_reverse),
         TEST("/lenght", test_lenght),
+        TEST("/clear", test_clear),
         TEST("/map", test_map),
         TEST("/filter", test_filter),
         {NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL}};
